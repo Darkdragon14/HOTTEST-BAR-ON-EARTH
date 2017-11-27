@@ -1,0 +1,39 @@
+version: '3'
+services:
+  rest:
+    build: ./REST
+    ports:
+      - "80:80"
+    networks:
+      - overlay
+
+  authapp:
+    build: ./AUTHAPP
+    ports:
+      - "8080"
+    networks:
+      - overlay
+
+  webapp:
+    build: ./WEBAPP
+    ports:
+      - "8081:8081"
+    networks:
+      - overlay
+
+  socketbar:
+    build: ./SOCKETBAR
+    ports:
+      - "8082:8082"
+    networks:
+      - overlay
+
+  socketclient:
+    build: ./SOCKETCLIENT
+    ports:
+      - "8083:8083"
+    networks:
+      - overlay
+
+networks:
+  overlay:
