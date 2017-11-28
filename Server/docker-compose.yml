@@ -17,21 +17,32 @@ services:
   webapp:
     build: ./WEBAPP
     ports:
+<<<<<<< HEAD
       - "8081"
+=======
+      - "8081:8081"
     networks:
       - overlay
 
   socketbar:
     build: ./SOCKETBAR
     ports:
+<<<<<<< HEAD
       - "8082"
+=======
+      - "8082:8082"
+>>>>>>> bc8d33cca25dd9e0beac3e9e4f6a319e1ca543b8
     networks:
       - overlay
 
   socketclient:
     build: ./SOCKETCLIENT
     ports:
+<<<<<<< HEAD
       - "8083"
+=======
+      - "8083:8083"
+>>>>>>> bc8d33cca25dd9e0beac3e9e4f6a319e1ca543b8
     networks:
       - overlay
 
