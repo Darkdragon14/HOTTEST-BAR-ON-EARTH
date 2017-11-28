@@ -1,11 +1,14 @@
 {
-  "name": "Data_Project_server",
+  "name": "SocketClient",
   "version": "1.0.0",
-  "description": "Data_Project_server",
-  "main": "data_daemon.js",
+  "description": "SocketClient",
+  "main": "socketclient.js",
+  "scripts": {
+    "start": "socketclient.js"
+  },
   "dependencies": {
-    "http": "4.16.2",
-    "mongodb": "2.2.33"
+    "socket.io": "2.0.4",
+    "express": "4.16.2"
   },
   "author": "achille penet"
 }

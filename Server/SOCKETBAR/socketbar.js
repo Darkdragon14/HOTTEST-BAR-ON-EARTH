@@ -1,18 +1,19 @@
 // content of index.js
-const http = require('http')
 const port = 8082
 
-const requestHandler = (request, response) => {
-  console.log(request.url)
-  response.end('Hello SocketBar Server!')
-}
+const app = require('express')()
+const server = require('http').createServer(app)
+var io = require('socket.io')(server)
 
-const server = http.createServer(requestHandler)
+io.on('connection', function(client){
+  client.on('event', function(data){})
+  client.on('disconnect', function(){})
+})
 
-server.listen(port, (err) => {
-  if (err) {
-    return console.log('something bad happened', err)
-  }
+app.get('/connectBar/', function(req, res){
+  res.send("connectBar : " + req.query.user_id)
+})
 
-  console.log(`server is listening on ${port}`)
+app.listen(port, function(){
+  console.log('listening on : ' + port)
 })
