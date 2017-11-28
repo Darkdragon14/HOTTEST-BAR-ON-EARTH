@@ -11,7 +11,7 @@ io.on('connection', function(client){
 })
 
 app.get('/connectClient/', function(req, res){
-  res.send("Parameters : " + req.query.user_id)
+  res.send("connectClient : " + req.query.user_id)
 })
 
 app.listen(port, function(){

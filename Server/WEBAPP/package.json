@@ -5,7 +5,6 @@
   "main": "data_daemon.js",
   "dependencies": {
     "express": "4.16.2",
-    "http": "4.16.2",
     "mongodb": "2.2.33"
   },
   "author": "achille penet"
