@@ -4,12 +4,9 @@
   "description": "Data_Project_server",
   "main": "data_daemon.js",
   "dependencies": {
-<<<<<<< HEAD
-    "express": "4.16.2"
-=======
+    "express": "4.16.2",
     "http": "4.16.2",
     "mongodb": "2.2.33"
->>>>>>> bc8d33cca25dd9e0beac3e9e4f6a319e1ca543b8
   },
   "author": "achille penet"
 }
