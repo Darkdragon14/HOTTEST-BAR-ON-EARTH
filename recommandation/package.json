@@ -1,0 +1,31 @@
+{
+  "name": "recommandation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Darkdragon14/Night-advisor.git"
+  },
+  "keywords": [
+    "Recommandation",
+    "Night",
+    "Advisor"
+  ],
+  "author": "Sinoquet Tristan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Darkdragon14/Night-advisor/issues"
+  },
+  "homepage": "https://github.com/Darkdragon14/Night-advisor#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "likely": "^0.2.0",
+    "nearest-neighbor": "0.0.3",
+    "request": "^2.83.0"
+  }
+}
