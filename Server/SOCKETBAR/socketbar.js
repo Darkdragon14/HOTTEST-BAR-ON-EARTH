@@ -14,11 +14,11 @@ io.on('connection', function(client){
 })
 
 app.get('/connectBar/', function(req, res){
-  res.send("connectBar : " + req.query.user_id)
+  res.send("connectBar : " + req.query.bar_id)
 })
 
 app.get('/updateData/', function(req, res){
-  res.send("updateData : " + req.query.user_id)
+  res.send("updateData : " + req.query.bar_id)
 })
 
 app.listen(port, function(){
