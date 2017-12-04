@@ -2,10 +2,6 @@ FROM node
 WORKDIR /usr/src/app
 COPY package.json .
 RUN npm install
-COPY serveur.js .
-COPY Chat.html .
-COPY site.html .
-COPY Chat_files .
-COPY bootstrap .
+COPY nightadvisor.js .
 EXPOSE 3000
 CMD [ "npm", "start" ]
