@@ -6,6 +6,7 @@ const server = require('http').createServer(app)
 var io = require('socket.io')(server)
 
 io.on('connection', function(client){
+  console.log("A user is connected !")
   client.on('event', function(data){
     client.emit('response', "Hey would you come with me in the sauna ?")
   })
@@ -14,6 +15,10 @@ io.on('connection', function(client){
 
 app.get('/connectBar/', function(req, res){
   res.send("connectBar : " + req.query.user_id)
+})
+
+app.get('/updateData/', function(req, res){
+  res.send("updateData : " + req.query.user_id)
 })
 
 app.listen(port, function(){
