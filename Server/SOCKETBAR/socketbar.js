@@ -6,7 +6,9 @@ const server = require('http').createServer(app)
 var io = require('socket.io')(server)
 
 io.on('connection', function(client){
-  client.on('event', function(data){})
+  client.on('event', function(data){
+    client.emit('response', "Hey would you come with me in the sauna ?")
+  })
   client.on('disconnect', function(){})
 })
 
