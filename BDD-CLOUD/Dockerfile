@@ -1,7 +1,9 @@
+
 FROM node
-WORKDIR /usr/src/app
-COPY package.json .
+RUN mkdir -p /usr/src/node
+WORKDIR /usr/src/node
+COPY package.json /usr/src/node/
 RUN npm install
-COPY nightadvisor.js .
-EXPOSE 3000
-CMD [ "npm", "start" ]
+COPY . /usr/src/node
+EXPOSE 8080
+CMD [ "node", "db_server.js" ]
