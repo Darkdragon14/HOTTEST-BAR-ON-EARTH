@@ -1,16 +1,18 @@
 //var WebSocket = require('ws');
 //var socket = new WebSocket("ws://www.example.com/socketserver");
-var socket=io.connect('http://localhost:8082');
+//var socket=io.connect('http://localhost:8082');
 
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var xhr = new XMLHttpRequest();
-xhr.open('POST', 'http://localhost:8082/updateData', true);
+
+xhr.open('POST', 'http://localhost/updateData/', true);
 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 xhr.onload = function () {
     // do something to response
     console.log(this.responseText);
 };
 var temperature=21;
-xhr.send('bar_id=12&temperature=temperature');
+xhr.send('bar_id=12&temperature=temperature');			//////voir problème récupération parametre
 
 setInterval(function(){ 
 			//	calculMoyenneTemp();
@@ -18,7 +20,7 @@ setInterval(function(){
 			}, 300000);
 setInterval(function(){ 
 			//	calculMoyennePersonne();
-			sendToServer("21","temperature");
+			//sendToServer("21","temperature");
 			}, 60000);
 
 
