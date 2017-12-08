@@ -17,7 +17,8 @@ app.get('/connectBar/', function(req, res){
   res.send("connectBar : " + req.query.bar_id)
 })
 
-app.get('/updateData/', function(req, res){
+app.post('/updateData/', function(req, res){
+  console.log(req)
   res.send("updateData : " + req.query.bar_id)
 })
 
