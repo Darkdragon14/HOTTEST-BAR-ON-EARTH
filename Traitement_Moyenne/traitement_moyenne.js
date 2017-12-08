@@ -2,17 +2,29 @@
 //var socket = new WebSocket("ws://www.example.com/socketserver");
 //var socket=io.connect('http://localhost:8082');
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var xhr = new XMLHttpRequest();
+const request = require('request');					/////////////http ok, recuperer la bonne temperature avec la bdd
 
-xhr.open('POST', 'http://localhost/updateData/', true);
-xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-xhr.onload = function () {
-    // do something to response
-    console.log(this.responseText);
-};
-var temperature=21;
-xhr.send('bar_id=12&temperature=temperature');			//////voir problème récupération parametre
+// Set the headers
+var headers = {
+    'User-Agent':       'Super Agent/0.0.1',
+    'Content-Type':     'application/x-www-form-urlencoded'
+}
+
+// Configure the request
+var options = {
+    url: 'http://localhost/connectBar/',
+    method: 'POST',
+    headers: headers,
+    form: {'bar_id': '12'}
+}
+
+// Start the request
+request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        // Print out the response body
+        console.log(body)
+    }
+})
 
 setInterval(function(){ 
 			//	calculMoyenneTemp();
