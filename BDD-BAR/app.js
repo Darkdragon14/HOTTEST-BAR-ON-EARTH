@@ -7,15 +7,35 @@ var TemperatureCollection = "TemperatureCollection";
 var PersonneCollection = "PersonneCollection";
 var SoundCollection = "SoundCollection";
 
-var collectionExisting = [];
 
 var db;
+
 MongoClient.connect(url, function(err, database) {
   if (err) throw err;
 
   		db=database;
-  		var array = getTemperature();
-      writeTemperature(22);
+  		
+      /*
+            ----   Exemple pour récupérer nombre de personne ----
+      
+      getData(PersonneCollection)
+      .then(function(res){
+        res.forEach(function(obj){
+          console.log(obj.nbPersonne + "à " + obj.date);
+        });
+      });
+
+            ----   Exemple pour écrire dans la bdd  -----
+      
+      writeTemperature(20.5);
+      writeSound(12);
+      writePersonne(21);
+        
+
+            ----    Exemple pour suppriemr toutes les données d'une collection :  ---
+            
+      clean(PersonneCollection);
+     */
 });
 
 
@@ -59,48 +79,24 @@ function writePersonne (nbPersonneBar){
 
 }
 
-function getTemperature (){
-	var res=5;
-	db.collection(TemperatureCollection).find().toArray(function(err, result) {
-    	if (err) throw err;
-    	console.log(result);
-    	var res= result;
-    	db.close();
-   
-    // result.forEach(function(objet){
-    // 	console.log(objet.temperature);
-    // });
-    
-  });
-	console.log(res);
-}
-
-
-function getPersonne (){
-	var res=5;
-	db.collection(PersonneCollection).find().toArray(function(err, result) {
-    	if (err) throw err;
-    	console.log(result);
-    	var res= result;
-    	db.close();
-  });
-}
-
-function getSound(){
-	var res=5;
-	db.collection(SoundCollection).find().toArray(function(err, result) {
-    	if (err) throw err;
-    	console.log(result);
-    	var res= result;
-    	db.close();
-  });
+function getData (collection){
+ 
+ return new Promise(function(resolve, reject) {
+    var result = db.collection(collection).find().toArray();
+    if (result) {
+        resolve(result);
+    } else {
+        reject("Something went wrong: ");
+      }
+    });
 }
 
 
 
-function clean() {
 
-	db.collection(TemperatureCollection).drop(function(err, delOK) {
+function clean(collection) {
+
+	db.collection(collection).drop(function(err, delOK) {
     if (err) throw err;
     if (delOK) console.log("Collection deleted");
     db.close();
