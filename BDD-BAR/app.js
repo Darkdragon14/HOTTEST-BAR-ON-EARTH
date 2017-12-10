@@ -1,4 +1,5 @@
 var mongo = require('mongodb');
+var sensor = require('node-dht-sensor');
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
@@ -38,6 +39,22 @@ MongoClient.connect(url, function(err, database) {
      */
 });
 
+
+conversion();
+var temp = setInterval(conversion, 5000*60);
+
+function conversion(){
+        sensor.read(22, 4, function(err, temperature) {
+                if (!err) {
+                console.log('temp: ' + temperature.toFixed(1) + '°C');
+                MongoClient.connect(url, function(err, database) {
+  					if (err) throw err;
+  						db=database;
+                		writeTemperature(temperature.toFixed(1));
+                });
+                }
+        });
+}
 
 
 function writeTemperature (temperatureBar){
