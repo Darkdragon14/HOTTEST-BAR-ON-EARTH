@@ -41,17 +41,18 @@ MongoClient.connect(url, function(err, database) {
 
 
 conversion();
+//temperature toute les 5 minutes
 var temp = setInterval(conversion, 5000*60);
 
 function conversion(){
         sensor.read(22, 4, function(err, temperature) {
                 if (!err) {
-                console.log('temp: ' + temperature.toFixed(1) + '°C');
-                MongoClient.connect(url, function(err, database) {
-  					if (err) throw err;
-  						db=database;
+                	console.log('temp: ' + temperature.toFixed(1) + '°C');
+               	 	MongoClient.connect(url, function(err, database) {
+  				if (err) throw err;
+  				db=database;
                 		writeTemperature(temperature.toFixed(1));
-                });
+                	});
                 }
         });
 }
