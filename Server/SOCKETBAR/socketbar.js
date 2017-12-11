@@ -25,13 +25,13 @@ io.on('connection', function(client){
 })
 
 app.post('/connectBar/', function(req, res){
-	console.log("connectBar : "+ req.body.bar_id);
-  res.send("connectBar : " + req.body.bar_id)
+	console.log(req.body.data+" = "+ req.body.moyenne);
+  res.send(req.body.data+" = "+ req.body.moyenne);
 })
 
 app.post('/updateData/', function(req, res){
-  console.log("updateData : " + req.body.bar_id)
-  res.send("updateData : " + req.query.bar_id)
+  console.log(req.body.data+" = "+ req.body.moyenne);
+  res.send(req.body.data+" = "+ req.body.moyenne);
 })
 
 app.listen(port, function(){
