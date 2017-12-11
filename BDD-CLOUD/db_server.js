@@ -12,7 +12,7 @@ var myRouter = express.Router();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://mongo/nightadvisor') ;
+mongoose.connect('mongodb://localhost/nightadvisor') ;
 
 //Modèles Mongoose
 var avisUsers = mongoose.Schema({
@@ -45,9 +45,6 @@ var Temperature = mongoose.model('Temperature', temperature);
 var DataLive = mongoose.model('DataLive', dataLive); 
 var Recommandations = mongoose.model('Recommandations', recommandations); 
 
-var Avis = mongoose.model('Avis', avisUsers);
-var myRouter = express.Router();
-
 
 //ROUTES
 
@@ -59,8 +56,6 @@ myRouter.route('/')
 
 //Avis
 myRouter.route('/avis')
-.get(function(req,res){ 
-myRouter.route('/avis/')
 .get(function(req,res){
 	Avis.find(function(err, avis){
         if (err){
@@ -78,16 +73,10 @@ myRouter.route('/avis/')
         if(err){
           res.send(err);
         }
-        res.json({message : "L'avis est maintenant enregistré"});
+        res.json({message : "Avis enregistré"});
       }); 
 }); 
 
-
-myRouter.route('/avis/:idBar')
-.get(function(req,res){ 
-            Avis.findById(req.params.idBar, function(err, avis) {
-      });
-});
 
 myRouter.route('/avis/:avis_id')
 .get(function(req,res){
@@ -145,20 +134,20 @@ myRouter.route('/temperature')
         if(err){
           res.send(err);
         }
-        res.json({message : "La temperature est maintenant enregistrée"});
+        res.json({message : "Temperature enregistrée"});
       }); 
 }); 
 
 
 //Recherche température par bar (avec l'idBar)
-myRouter.route('/temperature/:temperature.moyTemp')
+/*myRouter.route('/temperature/:temperature.moyTemp')
 .get(function(req,res){ 
             Temperature.find({ 'moyTemp': 'variable' }, function(err, temperature) {
             if (err)
                 res.send(err);
             res.json(temperature);
         });
-})
+})*/
 
 
 //DataLive
@@ -182,7 +171,7 @@ myRouter.route('/getDataLive')
         if(err){
           res.send(err);
         }
-        res.json({message : "L'avis est maintenant enregistré"});
+        res.json({message : "Données enregistrées"});
       }); 
 }); 
 
