@@ -8,23 +8,9 @@ const request = require('request');					/////////////http ok, recuperer la bonne
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/x-www-form-urlencoded'
-}
+};
 
-// Configure the request
-var options = {
-    url: 'http://localhost/connectBar/',
-    method: 'POST',
-    headers: headers,
-    form: {'bar_id': '12'}
-}
-
-// Start the request
-request(options, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        // Print out the response body
-        console.log(body)
-    }
-})
+sendToServer(12.6,"temperature");
 
 setInterval(function(){ 
 			//	calculMoyenneTemp();
@@ -47,7 +33,7 @@ setTimeout(function(){console.log("il est 7 heure");}, millisTill7);
 
 /*
 function calculMoyenneTemp (){
-	var data=JSON.parse(getTemperature());
+	var data=JSON.parse(getData());
 	var somme;
 	data.forEach(function(object){
 		somme=somme+object.temperature;			//vérifier que temperature n'est pas une string
@@ -77,15 +63,34 @@ function calculMoyennePersonne (){
 	var moyenne = somme/i;
 	sendToServer(moyenne,"presence");
 	//return Math.round(moyenne);
-}
+}*/
 
 
 function sendToServer (moyenne, data){
-	var msg={
+	/*var msg={
 		moyenne : Math.round(moyenne),
 		data : data
+	};*/
+
+	// Configure the request
+	var options = {
+	    url: 'http://localhost/updateData/',
+	    method: 'POST',
+	    headers: headers,
+	    //form: {'bar_id': '12'}
+	    form : {
+			moyenne : Math.round(moyenne),
+			data : data
+		}
 	};
-	socket.emit('event',msg);
+
+	// Start the request
+	request(options, function (error, response, body) {
+	    if (!error && response.statusCode == 200) {
+	        // Print out the response body
+	        console.log(body)
+	    }
+	});
 }
-*/
+
 
