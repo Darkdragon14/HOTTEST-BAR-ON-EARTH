@@ -12,7 +12,7 @@ var headers = {
 
 // Configure the request
 var options = {
-    url: 'http://localhost/connectBar/',
+    url: 'http://localhost/updateData/',
     method: 'POST',
     headers: headers,
     form: {'bar_id': '12'}
@@ -26,11 +26,11 @@ request(options, function (error, response, body) {
     }
 })
 
-setInterval(function(){ 
+setInterval(function(){
 			//	calculMoyenneTemp();
-			//	calculMoyennedB(); 
+			//	calculMoyennedB();
 			}, 300000);
-setInterval(function(){ 
+setInterval(function(){
 			//	calculMoyennePersonne();
 			//sendToServer("21","temperature");
 			}, 60000);
@@ -88,4 +88,3 @@ function sendToServer (moyenne, data){
 	socket.emit('event',msg);
 }
 */
-

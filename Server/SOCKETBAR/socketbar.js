@@ -14,7 +14,7 @@ var app = express();
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
-})); 
+}));
 
 io.on('connection', function(client){
   console.log("A user is connected !")
@@ -30,7 +30,7 @@ app.post('/connectBar/', function(req, res){
 })
 
 app.post('/updateData/', function(req, res){
-  console.log(req)
+  console.log("updateData : " + req.body.bar_id)
   res.send("updateData : " + req.query.bar_id)
 })
 

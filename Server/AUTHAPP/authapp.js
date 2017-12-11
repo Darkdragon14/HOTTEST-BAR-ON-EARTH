@@ -24,6 +24,7 @@ app.get('/login/', function(req, res){
 })
 
 app.get('/register/', function(req, res){
+  // Appel reco
   res.send("Parameters : " + req.query.user_id)
 })
 
