@@ -8,15 +8,27 @@ const request = require('request');					/////////////http ok, recuperer la bonne
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
     'Content-Type':     'application/x-www-form-urlencoded'
+<<<<<<< HEAD
 };
+=======
+}
+
+// Configure the request
+var options = {
+    url: 'http://localhost/updateData/',
+    method: 'POST',
+    headers: headers,
+    form: {'bar_id': '12'}
+}
+>>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad
 
 sendToServer(12.6,"temperature");
 
-setInterval(function(){ 
+setInterval(function(){
 			//	calculMoyenneTemp();
-			//	calculMoyennedB(); 
+			//	calculMoyennedB();
 			}, 300000);
-setInterval(function(){ 
+setInterval(function(){
 			//	calculMoyennePersonne();
 			//sendToServer("21","temperature");
 			}, 60000);
@@ -92,5 +104,9 @@ function sendToServer (moyenne, data){
 	    }
 	});
 }
+<<<<<<< HEAD
 
 
+=======
+*/
+>>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad

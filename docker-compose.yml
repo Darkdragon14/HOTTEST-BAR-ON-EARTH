@@ -1,0 +1,61 @@
+version: '3'
+services:
+  rest:
+    build: ./Server/REST
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - overlay
+    depends_on:
+      - db_server
+
+  authapp:
+    build: ./Server/AUTHAPP
+    ports:
+      - "8080"
+    networks:
+      - overlay
+
+  webapp:
+    build: ./Server/WEBAPP
+    ports:
+      - "8081"
+    networks:
+      - overlay
+
+  socketbar:
+    build: ./Server/SOCKETBAR
+    ports:
+      - "8082"
+    networks:
+      - overlay
+
+  socketclient:
+    build: ./Server/SOCKETCLIENT
+    ports:
+      - "8083"
+    networks:
+      - overlay
+
+  db_server:
+    restart: always
+    build: ./BDD-CLOUD
+    ports:
+      - "3000"
+    depends_on:
+      - mongo
+    networks:
+      - overlay
+
+  mongo:
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017"
+    networks:
+      - overlay
+
+networks:
+  overlay:
