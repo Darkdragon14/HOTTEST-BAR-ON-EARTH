@@ -22,8 +22,8 @@ var avisUsers = mongoose.Schema({
 });
 
 var temperature = mongoose.Schema({
-    idBar: String,
-    moyTemp: String      
+    moyenne: String, 
+    data: String     
 }); 
 
 var dataLive = mongoose.Schema({
@@ -117,7 +117,7 @@ myRouter.route('/avis/:avis_id')
 });*/
 
 //Température
-myRouter.route('/temperature')
+myRouter.route('/updateData')
 .get(function(req,res){ 
   Temperature.find(function(err, temperature){
         if (err){
@@ -128,8 +128,8 @@ myRouter.route('/temperature')
 })
 .post(function(req,res){
       var temperature = new Temperature();
-      temperature.idBar = req.body.idBar;
-      temperature.moyTemp = req.body.moyTemp;
+      temperature.moyenne = req.body.moyenne;
+      temperature.data = req.body.data;
       temperature.save(function(err){
         if(err){
           res.send(err);
@@ -175,12 +175,20 @@ myRouter.route('/getDataLive')
       }); 
 }); 
 
-//DataLive
+//Recommandations
 myRouter.route('/sendRecommandations')
+.get(function(req,res){ 
+  Recommandations.find(function(err, recommandations){
+        if (err){
+            res.send(err); 
+        }
+        res.json(recommandations);  
+    }); 
+})
 .post(function(req,res){
       var recommandations = new Recommandations();
-      recommandations.IDUser = req.body.IDuser;
-      recommandations.IDar = req.body.IDbar;
+      recommandations.IDUser = req.body.IDUser;
+      recommandations.IDBar = req.body.IDBar;
       recommandations.Probability = req.body.Probability;
       recommandations.save(function(err){
         if(err){
