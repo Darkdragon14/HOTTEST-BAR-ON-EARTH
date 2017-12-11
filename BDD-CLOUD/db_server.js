@@ -2,9 +2,11 @@
 var express = require('express');
 var bodyParser = require("body-parser"); 
 var mongoose = require('mongoose');
-var port = 8080;
+var port = 3000;
 var hostname = 'localhost'; 
 var app = express();
+var myRouter = express.Router(); 
+
 
  
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -12,20 +14,47 @@ app.use(bodyParser.json());
 
 mongoose.connect('mongodb://localhost/nightadvisor') ;
 
+//Modèles Mongoose
 var avisUsers = mongoose.Schema({
     idUser: String, 
     idBar: String, 
     note: Number,      
 }); 
 
-var Avis = mongoose.model('Avis', avisUsers); 
-var myRouter = express.Router(); 
+var temperature = mongoose.Schema({
+    idBar: String,
+    moyTemp: String      
+}); 
 
+var dataLive = mongoose.Schema({
+    idBar: String, 
+    temperature: Number, 
+    bar: String,
+    musique: String,    
+    occupation: Number 
+}); 
+
+var recommandations = mongoose.Schema({
+    IDuser: String,
+    IDbar: String,
+    Probability: Number
+}); 
+
+var Avis = mongoose.model('Avis', avisUsers); 
+var Temperature = mongoose.model('Temperature', temperature); 
+var DataLive = mongoose.model('DataLive', dataLive); 
+var Recommandations = mongoose.model('Recommandations', recommandations); 
+
+
+//ROUTES
+
+//Principale
 myRouter.route('/')
 .all(function(req,res){ 
       res.json({message : "Bienvenue sur la base de donnée de Night Advisor"});
 });
-  
+
+//Avis
 myRouter.route('/avis')
 .get(function(req,res){ 
 	Avis.find(function(err, avis){
@@ -47,15 +76,16 @@ myRouter.route('/avis')
         res.json({message : "L'avis est maintenant enregistré"});
       }); 
 }); 
- 
-myRouter.route('/avis/:avis_id')
+
+
+myRouter.route('/avis/:idBar')
 .get(function(req,res){ 
-            Avis.findById(req.params.avis_id, function(err, avis) {
+            Avis.findById(req.params.idBar, function(err, avis) {
             if (err)
                 res.send(err);
             res.json(avis);
         });
-})
+})/* 
 .put(function(req,res){ 
                 Avis.findById(req.params.avis_id, function(err, avis) {
                 if (err){
@@ -81,9 +111,99 @@ myRouter.route('/avis/:avis_id')
         res.json({message:"Avis supprimé"}); 
     }); 
     
-});
+});*/
+
+//Température
+myRouter.route('/temperature')
+.get(function(req,res){ 
+  Temperature.find(function(err, temperature){
+        if (err){
+            res.send(err); 
+        }
+        res.json(temperature);  
+    }); 
+})
+.post(function(req,res){
+      var temperature = new Temperature();
+      temperature.idBar = req.body.idBar;
+      temperature.moyTemp = req.body.moyTemp;
+      temperature.save(function(err){
+        if(err){
+          res.send(err);
+        }
+        res.json({message : "La temperature est maintenant enregistrée"});
+      }); 
+}); 
+
+
+//Recherche température par bar (avec l'idBar)
+myRouter.route('/temperature/:temperature.moyTemp')
+.get(function(req,res){ 
+            Temperature.find({ 'moyTemp': 'variable' }, function(err, temperature) {
+            if (err)
+                res.send(err);
+            res.json(temperature);
+        });
+})
+
+
+//DataLive
+myRouter.route('/getDataLive')
+.get(function(req,res){ 
+  DataLive.find(function(err, dataLive){
+        if (err){
+            res.send(err); 
+        }
+        res.json(dataLive);  
+    }); 
+})
+.post(function(req,res){
+      var dataLive = new DataLive();
+      dataLive.idBar = req.body.idBar;
+      dataLive.temperature = req.body.temperature;
+      dataLive.bar = req.body.bar;
+      dataLive.musique = req.body.musique;
+      dataLive.occupation = req.body.occupation;
+      dataLive.save(function(err){
+        if(err){
+          res.send(err);
+        }
+        res.json({message : "L'avis est maintenant enregistré"});
+      }); 
+}); 
+
+//DataLive
+myRouter.route('/sendRecommandations')
+.post(function(req,res){
+      var recommandations = new Recommandations();
+      recommandations.IDuser = req.body.IDuser;
+      recommandations.IDbar = req.body.IDbar;
+      recommandations.Probability = req.body.Probability;
+      recommandations.save(function(err){
+        if(err){
+          res.send(err);
+        }
+        res.json({message : "Recommandation enregistrée"});
+      }); 
+}); 
+
 
 app.use(myRouter);   
 app.listen(port, hostname, function(){
 	console.log("Mon serveur fonctionne sur http://"+ hostname +":"+port); 
 });
+
+
+
+//Recommandations
+//POST avec IDuser, IDbar et Probability
+/*[
+  { idBar: "bar1", temperature: 18, bar: "Biere", musique: "pop", occupation: 11},
+  { idBar: "bar2", temperature: 25, bar: "Vin", musique: "rap", occupation: 15 },
+  { idBar: "bar3", temperature: 20, bar: "Wisky", musique: "dance", occupation: 20 },
+  { idBar: "bar4", temperature: 19, bar: "Biere", musique: "electro", occupation: 30 },
+  { idBar: "bar5", temperature: 22, bar: "Biere", musique: "rap", occupation: 5 },
+  { idBar: "bar6", temperature: 15, bar: "Wisky", musique: "classique", occupation: 12 },
+];*/
+
+
