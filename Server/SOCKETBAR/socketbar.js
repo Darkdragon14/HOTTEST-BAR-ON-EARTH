@@ -30,13 +30,8 @@ app.post('/connectBar/', function(req, res){
 })
 
 app.post('/updateData/', function(req, res){
-<<<<<<< HEAD
   console.log(req.body.data+" = "+ req.body.moyenne);
   res.send(req.body.data+" = "+ req.body.moyenne);
-=======
-  console.log("updateData : " + req.body.bar_id)
-  res.send("updateData : " + req.query.bar_id)
->>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad
 })
 
 app.listen(port, function(){
