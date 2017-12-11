@@ -1,26 +1,31 @@
 //Require
 var express = require('express');
-var bodyParser = require("body-parser"); 
+var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 var port = 3000;
+<<<<<<< HEAD
 var hostname = 'localhost'; 
+=======
+var hostname = 'db_server';
+>>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad
 var app = express();
 var myRouter = express.Router(); 
 
 
- 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost/nightadvisor') ;
+mongoose.connect('mongodb://mongo/nightadvisor') ;
 
 //Modèles Mongoose
 var avisUsers = mongoose.Schema({
-    idUser: String, 
-    idBar: String, 
-    note: Number,      
-}); 
+    idUser: String,
+    idBar: String,
+    note: Number,
+});
 
+<<<<<<< HEAD
 var temperature = mongoose.Schema({
     idBar: String,
     moyTemp: String      
@@ -35,8 +40,8 @@ var dataLive = mongoose.Schema({
 }); 
 
 var recommandations = mongoose.Schema({
-    IDuser: String,
-    IDbar: String,
+    IDUser: String,
+    IDBar: String,
     Probability: Number
 }); 
 
@@ -45,24 +50,33 @@ var Temperature = mongoose.model('Temperature', temperature);
 var DataLive = mongoose.model('DataLive', dataLive); 
 var Recommandations = mongoose.model('Recommandations', recommandations); 
 
+=======
+var Avis = mongoose.model('Avis', avisUsers);
+var myRouter = express.Router();
+>>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad
 
 //ROUTES
 
 //Principale
 myRouter.route('/')
-.all(function(req,res){ 
+.all(function(req,res){
       res.json({message : "Bienvenue sur la base de donnée de Night Advisor"});
 });
 
+<<<<<<< HEAD
 //Avis
 myRouter.route('/avis')
 .get(function(req,res){ 
+=======
+myRouter.route('/avis/')
+.get(function(req,res){
+>>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad
 	Avis.find(function(err, avis){
         if (err){
-            res.send(err); 
+            res.send(err);
         }
-        res.json(avis);  
-    }); 
+        res.json(avis);
+    });
 })
 .post(function(req,res){
       var avis = new Avis();
@@ -74,6 +88,7 @@ myRouter.route('/avis')
           res.send(err);
         }
         res.json({message : "L'avis est maintenant enregistré"});
+<<<<<<< HEAD
       }); 
 }); 
 
@@ -81,12 +96,25 @@ myRouter.route('/avis')
 myRouter.route('/avis/:idBar')
 .get(function(req,res){ 
             Avis.findById(req.params.idBar, function(err, avis) {
+=======
+      });
+});
+
+myRouter.route('/avis/:avis_id')
+.get(function(req,res){
+            Avis.findById(req.params.avis_id, function(err, avis) {
+>>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad
             if (err)
                 res.send(err);
             res.json(avis);
         });
+<<<<<<< HEAD
 })/* 
 .put(function(req,res){ 
+=======
+})
+.put(function(req,res){
+>>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad
                 Avis.findById(req.params.avis_id, function(err, avis) {
                 if (err){
                     res.send(err);
@@ -99,15 +127,16 @@ myRouter.route('/avis/:idBar')
                             res.send(err);
                           }
                           res.json({message : "Avis mis à jour"});
-                        });         
+                        });
                 });
 })
-.delete(function(req,res){ 
- 
+.delete(function(req,res){
+
     Avis.remove({_id: req.params.avis_id}, function(err, avis){
         if (err){
-            res.send(err); 
+            res.send(err);
         }
+<<<<<<< HEAD
         res.json({message:"Avis supprimé"}); 
     }); 
     
@@ -176,8 +205,8 @@ myRouter.route('/getDataLive')
 myRouter.route('/sendRecommandations')
 .post(function(req,res){
       var recommandations = new Recommandations();
-      recommandations.IDuser = req.body.IDuser;
-      recommandations.IDbar = req.body.IDbar;
+      recommandations.IDUser = req.body.IDuser;
+      recommandations.IDBar = req.body.IDbar;
       recommandations.Probability = req.body.Probability;
       recommandations.save(function(err){
         if(err){
@@ -207,3 +236,14 @@ app.listen(port, hostname, function(){
 ];*/
 
 
+=======
+        res.json({message:"Avis supprimé"});
+    });
+
+});
+
+app.use(myRouter);
+app.listen(port, function(){
+	console.log("Mon serveur fonctionne sur http://"+ hostname +":"+port);
+});
+>>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad

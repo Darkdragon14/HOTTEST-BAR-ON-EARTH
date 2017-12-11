@@ -5,5 +5,5 @@ WORKDIR /usr/src/node
 COPY package.json /usr/src/node/
 RUN npm install
 COPY . /usr/src/node
-EXPOSE 8080
+EXPOSE 3000
 CMD [ "node", "db_server.js" ]

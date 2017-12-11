@@ -1,7 +1,5 @@
 # Recommandation
 
-Attention pour le moment ne fonctionne pas encore, on peu juste faire des requête dessus mais il crash lors du calcul !!!
-
 Permet de faire de la recommendation pour cela nous utilisons :
 * [nearest-neighbor](https://www.npmjs.com/package/nearest-neighbor)
 * [likely](https://www.npmjs.com/package/likely)
@@ -23,7 +21,8 @@ Pour lancer l'application :
 npm start
 ```
 
-Une fois après que l'application soit lancé, si vous voulez tester, il faut faire :
+Si vous voulez tester, il faut faire :
 ```
 npm test
 ```
+Ensuite aller sur un naviagateur wbe et faite [localhost:8000](http://localhost:8000). vous poouvez voir le résultat dans le terminal.
