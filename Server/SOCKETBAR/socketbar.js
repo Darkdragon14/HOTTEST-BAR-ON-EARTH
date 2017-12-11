@@ -8,7 +8,7 @@ var io = require('socket.io')(server)
 io.on('connection', function(client){
   console.log("A user is connected !")
   client.on('event', function(data){
-    client.emit('response', "Hey would you come with me in the sauna ?")
+    client.emit('response', "Hey would you")
   })
   client.on('disconnect', function(){})
 })
