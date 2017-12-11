@@ -27,7 +27,7 @@ var temperature = mongoose.Schema({
 }); 
 
 var dataLive = mongoose.Schema({
-    idBar: String, 
+    IDBar: String, 
     temperature: Number, 
     bar: String,
     musique: String,    
@@ -162,7 +162,7 @@ myRouter.route('/getDataLive')
 })
 .post(function(req,res){
       var dataLive = new DataLive();
-      dataLive.idBar = req.body.idBar;
+      dataLive.IDBar = req.body.idBar;
       dataLive.temperature = req.body.temperature;
       dataLive.bar = req.body.bar;
       dataLive.musique = req.body.musique;
