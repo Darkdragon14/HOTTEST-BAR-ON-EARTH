@@ -11,15 +11,13 @@ const request = require('request');
 
 const dataLive = {
   hostname: 'localhost',
-  port: 8000,
+  port: 8080,
   path: '/getDataLive',
   method: 'GET',
 };
 
 var dataRecoWithLive = {
-	hostname: 'localhost',
-  	port: 8000,
- 	path: '/sendRecommendation',
+	uri: 'localhost:8080/sendRecommandations',
   	method: 'POST',
 }
 
@@ -49,12 +47,12 @@ app.get('/newClient/:IDUser&:musique&:bar&:occupation&:temperature', function(re
 			  	console.log(nearestNeighbor);
 			  	console.log(probability);
 			  	console.log([{IDUser: query.IDUser, IDBar: nearestNeighbor.name, Probability: probability}]);
-			  	//dataRecoWithLive.json = [{IDUser: query.IDUser, IDBar: nearestNeighbor.name, Probability: probability}];
-				/*request(dataRecoWithLive, function (error, response, body) {
+			  	dataRecoWithLive.json = [{"IDUser": query.IDUser, "IDBar": nearestNeighbor.name, "Probability": probability}];
+				request(dataRecoWithLive, function (error, response, body) {
 				  	if (!error && response.statusCode == 200) {
 				    	console.log(body.id) // Print the shortened url.
 				  	}
-				});*/
+				});
 			});
 		});
 	}).on("error", function(e){
@@ -75,6 +73,6 @@ function CalculRecommendation(){
 /****************************************************************
 Ports d'écoute
 ****************************************************************/
-server.listen(8080, function(){
-    console.log("server running 8080")
+server.listen(8000, function(){
+    console.log("server running 8000")
 });

@@ -28,7 +28,7 @@ nn.findMostSimilar(query, items, fields, function(nearestNeighbor, probability) 
 
 const testRequest = {
   hostname: 'localhost',
-  port: 8080,
+  port: 8000,
   path: '/newClient/Bob&pop&Biere&10&20',
   method: 'GET',
 }
@@ -46,7 +46,13 @@ app.get("/getDataLive", function(req, res){
   res.send(items);
 })
 
-server.listen(8000, function(){
-    console.log("server running 8000")
+app.post("/sendRecommandations", function(req, res){
+  console.dir(req.body);
+  res.send("ok");
+
+})
+
+server.listen(8080, function(){
+    console.log("server running 8080")
 });
 
