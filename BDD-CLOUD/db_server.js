@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 var port = 3000;
-var hostname = 'localhost';
+var hostname = 'db_server';
 var app = express();
 var myRouter = express.Router();
 
@@ -12,7 +12,7 @@ var myRouter = express.Router();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost/nightadvisor') ;
+mongoose.connect('mongodb://mongo/nightadvisor') ;
 
 //Modèles Mongoose
 var avisUsers = mongoose.Schema({
