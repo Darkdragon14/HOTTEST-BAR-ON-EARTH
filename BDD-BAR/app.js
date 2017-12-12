@@ -12,9 +12,12 @@ var SoundCollection = "SoundCollection";
 var db;
 
 MongoClient.connect(url, function(err, database) {
+
   if (err) throw err;
 
+
   		db=database;
+      console.log("test db");
   		
       /*
             ----   Exemple pour récupérer nombre de personne ----
@@ -39,7 +42,7 @@ MongoClient.connect(url, function(err, database) {
      */
 });
 
-
+/*
 conversion();
 //temperature toute les 5 minutes
 var temp = setInterval(conversion, 5000*60);
@@ -56,7 +59,7 @@ function conversion(){
                 }
         });
 }
-
+*/
 
 function writeTemperature (temperatureBar){
 
@@ -97,8 +100,8 @@ function writePersonne (nbPersonneBar){
 
 }
 
-function getData (collection){
- 
+var getDataFct = function getData (collection,callback){
+console.log("test ok");
  return new Promise(function(resolve, reject) {
     var result = db.collection(collection).find().toArray();
     if (result) {
@@ -109,10 +112,11 @@ function getData (collection){
     });
 }
 
+exports.getData=getDataFct;
 
 
 
-function clean(collection) {
+var cleanFct= function clean(collection) {
 
 	db.collection(collection).drop(function(err, delOK) {
     if (err) throw err;
@@ -120,3 +124,5 @@ function clean(collection) {
     db.close();
   });
 }
+
+exports.clean=cleanFct;

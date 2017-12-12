@@ -2,6 +2,8 @@
 //var socket = new WebSocket("ws://www.example.com/socketserver");
 //var socket=io.connect('http://localhost:8082');
 
+
+var bdd_bar=require("../BDD-BAR/app.js");
 const request = require('request');					/////////////http ok, recuperer la bonne temperature avec la bdd
 
 // Set the headers
@@ -11,10 +13,12 @@ var headers = {
 };
 
 
-sendToServer(12.6,"temperature");
+setTimeout(function(){calculMoyenneTemp();}, 2000);
+
+//sendToServer(12.6,"temperature");
 
 setInterval(function(){
-			//	calculMoyenneTemp();
+				calculMoyenneTemp();
 			//	calculMoyennedB();
 			}, 300000);
 setInterval(function(){
@@ -31,19 +35,54 @@ if (millisTill7 < 0) {
 console.log("test : "+millisTill7);
 setTimeout(function(){console.log("il est 7 heure");}, millisTill7);
 
+var somme;
+var i;
 
-/*
+function calculSomme(data,res,callback){
+	res.forEach(function(obj){
+		//donnee=JSON.parse(data);
+ 		console.log(obj.temperature + " à " + obj.date);
+ 		somme=somme+obj.temperature;
+ 		console.log("La somme est "+somme);
+ 		i++;
+	});
+	callback();
+}
+
+
 function calculMoyenneTemp (){
-	var data=JSON.parse(getData());
+	somme=0;
+	i=0;
+	var temperature;
+	bdd_bar.getData("TemperatureCollection")
+		.then(function(res){
+			calculSomme("temperature",res,function(){
+				console.log("test callback");
+				var moyenne = somme/i;
+				console.log("La moyenne est "+moyenne);
+				sendToServer(moyenne,"temperature");
+				bdd_bar.clean("TemperatureCollection");
+			})
+		});
+/*
+	var data=JSON.parse(db.getData(PersonneCollection)
+      .then(function(res){
+        res.forEach(function(obj){
+          console.log(obj.nbPersonne + "à " + obj.date);
+        });
+      }););
 	var somme;
 	data.forEach(function(object){
 		somme=somme+object.temperature;			//vérifier que temperature n'est pas une string
-	})
-	var moyenne = somme/i;
-	sendToServer(moyenne,"temperature");
+	})*/
+	
+	//var moyenne = somme/i;
+	//console.log("La moyenne est "+moyenne);
+	//sendToServer(moyenne,"temperature");
+	//cleandb.clean();
 //	return Math.round(moyenne);
 }
-
+/*
 function calculMoyennedB (){
 	var data=JSON.parse(get30Sound());
 	var somme;
@@ -64,8 +103,8 @@ function calculMoyennePersonne (){
 	var moyenne = somme/i;
 	sendToServer(moyenne,"presence");
 	//return Math.round(moyenne);
-}*/
-
+}
+*/
 
 function sendToServer (moyenne, data){
 	/*var msg={
