@@ -18,27 +18,6 @@ MongoClient.connect(url, function(err, database) {
 
   		db=database;
       console.log("test db");
-      /*
-            ----   Exemple pour récupérer nombre de personne ----
-      
-      getData(PersonneCollection)
-      .then(function(res){
-        res.forEach(function(obj){
-          console.log(obj.nbPersonne + "à " + obj.date);
-        });
-      });
-
-            ----   Exemple pour écrire dans la bdd  -----
-      
-      writeTemperature(20.5);
-      writeSound(12);
-      writePersonne(21);
-        
-
-            ----    Exemple pour suppriemr toutes les données d'une collection :  ---
-            
-      clean(PersonneCollection);
-     */
 });
 
 
@@ -58,7 +37,7 @@ function writeTemperatureFct (temperatureBar){
 
 exports.writeTemperature=writeTemperatureFct;
 
-function writeSound(niveauDbBar){
+function writeSoundFct(niveauDbBar){
 
   var myobj = { niveau: niveauDbBar, date: new Date() };
 
@@ -70,6 +49,8 @@ function writeSound(niveauDbBar){
   }); 
 
 }
+
+exports.writeSound=writeSoundFct;
 
 function writePersonne (nbPersonneBar){
 
@@ -83,6 +64,8 @@ function writePersonne (nbPersonneBar){
   }); 
 
 }
+
+exports.writePersonne=writePersonneFct;
 
 var getDataFct = function getData (collection,callback){
 console.log("test ok");
