@@ -8,5 +8,5 @@ npm install
 ```
 3 - Run the simulator on iOS or Android
 ```
-react-native run-ios ou react-native run-android
+react-native run-ios or react-native run-android
 ```
