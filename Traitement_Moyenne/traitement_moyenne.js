@@ -14,18 +14,29 @@ var headers = {
 
 
 setTimeout(function(){calculMoyenneTemp();}, 2000);
+setTimeout(function(){conversion();}, 2000);
 
-//sendToServer(12.6,"temperature");
+
+
+
+//temperature toute les 5 minutes
+var temp = setInterval(conversion, 500*60);
+
+function conversion(){
+        sensor.read(22, 4, function(err, temperature) {
+                if (!err) {
+                	console.log('temp: ' + temperature.toFixed(1) + '°C');
+               	 	bdd_bar.writeTemperature(temperature.toFixed(1));
+                	
+                }
+        });
+}
+
 
 setInterval(function(){
 				calculMoyenneTemp();
 			//	calculMoyennedB();
 			}, 60000);			//toute les minute pour la demo
-setInterval(function(){
-			//	calculMoyennePersonne();
-			//sendToServer("21","temperature");
-			}, 60000);
-
 
 var now = new Date();
 var millisTill7 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 15, 22, 0, 0) - now;
@@ -61,7 +72,7 @@ function calculMoyenneTemp (){
 				var moyenne = somme/i;
 				console.log("La moyenne est "+moyenne);
 				sendToServer(moyenne,"temperature");
-				bdd_bar.clean("TemperatureCollection");
+				// bdd_bar.clean("TemperatureCollection");
 			})
 		});
 /*
@@ -114,7 +125,7 @@ function sendToServer (moyenne, data){
 
 	// Configure the request
 	var options = {
-	    url: 'http://localhost/updateData/',
+	    url: 'http://localhost:8082/updateData/',
 	    method: 'POST',
 	    headers: headers,
 	    //form: {'bar_id': '12'}
@@ -123,7 +134,7 @@ function sendToServer (moyenne, data){
 			data : data
 		}
 	};
-
+	console.log("send temp " + moyenne);
 	// Start the request
 	request(options, function (error, response, body) {
 	    if (!error && response.statusCode == 200) {
