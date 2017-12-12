@@ -57,5 +57,15 @@ services:
     networks:
       - overlay
 
+  reco:
+    restart: always
+    build: ./recommandation
+    ports:
+      - "8000"
+    depends_on:
+      - db_server
+    networks:
+      - overlay
+
 networks:
   overlay:
