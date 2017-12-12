@@ -1,5 +1,5 @@
 var mongo = require('mongodb');
-//var sensor = require('node-dht-sensor');
+var sensor = require('node-dht-sensor');
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
@@ -51,12 +51,12 @@ function writeTemperatureFct (temperatureBar){
     if (err) throw err;
     console.log("1 document inserted" + res);
 
-    db.close();
+   // db.close();
   }); 
 
 }
 
-exports.writeTempFct=writeTemperature;
+exports.writeTemperature=writeTemperatureFct;
 
 function writeSound(niveauDbBar){
 

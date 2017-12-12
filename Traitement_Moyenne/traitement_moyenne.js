@@ -4,6 +4,7 @@
 
 
 var bdd_bar=require("../BDD-BAR/app.js");
+var sensor=require("node-dht-sensor");
 const request = require('request');					/////////////http ok, recuperer la bonne temperature avec la bdd
 
 // Set the headers
@@ -52,8 +53,8 @@ var i;
 function calculSomme(data,res,callback){
 	res.forEach(function(obj){
 		//donnee=JSON.parse(data);
- 		console.log(obj.temperature + " à " + obj.date);
- 		somme=somme+obj.temperature;
+ 		console.log(obj.temperature + " à " );
+ 		somme=somme+parseInt(obj.temperature);
  		console.log("La somme est "+somme);
  		i++;
 	});
@@ -125,12 +126,13 @@ function sendToServer (moyenne, data){
 
 	// Configure the request
 	var options = {
-	    url: 'http://localhost:8082/updateData/',
-	    method: 'POST',
+	    url: 'http://172.20.10.3/updateData/',
+	    //url: 'http://localhost:8082/updateData/',
+            method: 'POST',
 	    headers: headers,
 	    //form: {'bar_id': '12'}
 	    form : {
-			moyenne : Math.round(moyenne),
+			moyenne : Math.round(moyenne*100)/100,
 			data : data
 		}
 	};
@@ -140,7 +142,9 @@ function sendToServer (moyenne, data){
 	    if (!error && response.statusCode == 200) {
 	        // Print out the response body
 	        console.log(body)
-	    }
+	    }else{
+		console.log("error" + error +  response.statusCode);
+		}
 	});
 }
 
