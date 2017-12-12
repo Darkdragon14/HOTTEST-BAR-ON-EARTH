@@ -20,7 +20,7 @@ setTimeout(function(){calculMoyenneTemp();}, 2000);
 setInterval(function(){
 				calculMoyenneTemp();
 			//	calculMoyennedB();
-			}, 300000);
+			}, 60000);			//toute les minute pour la demo
 setInterval(function(){
 			//	calculMoyennePersonne();
 			//sendToServer("21","temperature");
