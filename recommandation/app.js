@@ -11,15 +11,15 @@ const request = require('request');
 
 const dataLive = {
   hostname: 'localhost',
-  port: 8080,
+  port: 3000,
   path: '/getDataLive',
   method: 'GET',
 };
 
-var dataRecoWithLive = {
-	uri: 'localhost:8080/sendRecommandations',
+/* var dataRecoWithLive = {
+	url: 'localhost:3000/sendRecommandations',
   	method: 'POST',
-}
+}*/
 
 //Pour un poid plus fort d'un valeur il faut répéter l'élément plusieurs fois
 var fields = [
@@ -42,17 +42,32 @@ app.get('/newClient/:IDUser&:musique&:bar&:occupation&:temperature', function(re
 			var items = JSON.parse(chunk)
 			console.log(query);
 			console.log(fields);
+			console.log(items);
 		    nn.findMostSimilar(query, items, fields, function(nearestNeighbor, probability) {
 			  	//console.log(query);
 			  	console.log(nearestNeighbor);
 			  	console.log(probability);
-			  	console.log([{IDUser: query.IDUser, IDBar: nearestNeighbor.name, Probability: probability}]);
-			  	dataRecoWithLive.json = [{"IDUser": query.IDUser, "IDBar": nearestNeighbor.name, "Probability": probability}];
-				request(dataRecoWithLive, function (error, response, body) {
+			  	console.log([{IDUser: query.IDUser, IDBar: nearestNeighbor.IDBar, Probability: probability}]);
+			  	//dataRecoWithLive.json = {"IDUser": query.IDUser, "IDBar": nearestNeighbor.IDBar, "Probability": probability};
+
+			  	var options = { 
+			  		method: 'POST',
+				  	url: 'http://localhost:3000/sendRecommandations',
+				  	headers: {'Content-Type': 'application/json'},
+				  	body: { IDUser: query.IDUser, IDBar: nearestNeighbor.IDBar, Probability: probability },
+				  	json: true 
+				};
+
+				request(options, function (error, response, body) {
+				  if (error) throw new Error(error);
+
+				  console.log(body);
+				});
+				/*request(dataRecoWithLive, function (error, response, body) {
 				  	if (!error && response.statusCode == 200) {
 				    	console.log(body.id) // Print the shortened url.
 				  	}
-				});
+				});*/
 			});
 		});
 	}).on("error", function(e){

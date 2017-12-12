@@ -46,11 +46,10 @@ app.get("/getDataLive", function(req, res){
   res.send(items);
 })
 
-app.post("/sendRecommandations", function(req, res){
-  console.dir(req.body);
+/*app.post("/sendRecommandations", function(req, res){
+  console.log(req.body);
   res.send("ok");
-
-})
+})*/
 
 server.listen(8080, function(){
     console.log("server running 8080")

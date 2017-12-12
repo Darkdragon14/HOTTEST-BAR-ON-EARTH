@@ -57,7 +57,11 @@ myRouter.route('/')
 //Avis
 myRouter.route('/avis')
 .get(function(req,res){
+<<<<<<< HEAD
   Avis.find(function(err, avis){
+=======
+	Avis.find(function(err, avis){
+>>>>>>> b56cb6a5caa4135e44b7ac2babb2d4043b153edc
         if (err){
             res.send(err);
         }
