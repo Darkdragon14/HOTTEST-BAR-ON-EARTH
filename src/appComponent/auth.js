@@ -4,12 +4,15 @@
 import React, { Component } from 'react';
 import {Alert, Platform, StyleSheet, Text, View, AppRegistry, Image, TextInput, Button} from 'react-native';
 import { width, height, totalSize } from 'react-native-dimension';
+import Reflux from 'reflux';
+
 
 /* ====================================================
      JSX FILE FOR INDEX
      ====================================================== */
 import Login    from './authComponent/login.js'
 import Register from './authComponent/register.js'
+import Store  from './../store.js';
 
 /* ====================================================
       JS LIBRARIE
@@ -52,13 +55,12 @@ function Greeting(props){
 /* ====================================================
       CODE
       ====================================================== */
-export default class Auth extends Component {
+export default class Auth extends Reflux.Component {
   constructor(props){
     super(props);
-    this.state = {
-      checkPage: true // true : page de login / false : page d'enregistrement
-    };
+    this.store = Store;
 
+    // Fonction
     this.onPressButton = this.onPressButton.bind(this);
   };
 

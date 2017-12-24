@@ -37,17 +37,17 @@ export default class Login extends Reflux.Component {
       stayConnected: false
     };
 
-    this.handleLogin = this.handleLogin.bind(this);
+    this.postLogin = this.postLogin.bind(this);
   };
 
-  handleLogin(){
+  postLogin(){
     /*const api = new Rest();
     var rep;
     api.login(this.state.pseudo, this.state.password, this.state.stayConnected)
       .then(response => rep = response.token);   // Successfully logged in
     console.log(rep);
     Actions.login(rep)*/
-    Actions.login();
+    Actions.login(); // change seulement la valeur check à true
   }
 
 
@@ -75,7 +75,7 @@ export default class Login extends Reflux.Component {
           />
           <View style={styles.myButton}>
             <Button
-              onPress={this.handleLogin}
+              onPress={this.postLogin}
               title="Se connecter"/>
           </View>
         </View>

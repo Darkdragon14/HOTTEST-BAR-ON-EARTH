@@ -3,7 +3,7 @@ import Reflux from 'reflux';
 var Actions = Reflux.createActions([
   'login',
   'register',
-  'getTemperature'
+  //'getTemperature'
 ])
 
 module.exports = Actions;

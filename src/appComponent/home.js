@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import {Alert, Platform, StyleSheet, Text, View, AppRegistry, Image, TextInput, Button} from 'react-native';
 import { width, height, totalSize } from 'react-native-dimension';
+import Reflux from 'reflux';
 
 /* ====================================================
      JSX FILE FOR INDEX
@@ -28,27 +29,32 @@ import Rest  from './../rest.js';
 /* ====================================================
       CODE
       ====================================================== */
-export default class Home extends Component {
+export default class Home extends Reflux.Component {
   constructor(props){
     super(props);
     this.state = {
-      temperature: '23',
+      temperature: 1,
       compteur: 0,
     };
 
-    this.handleTemperature = this.handleTemperature.bind(this);
+    //this.getTemperature = this.getTemperature.bind(this);
   };
 
-  handleTemperature(){
-    const api = new Rest();
-    var rep;
-    api.getTemperature()
-      .then(response => rep = response.moyenne);   // Successfully logged in
-    Alert.alert('moyenne : ' + rep);
-    this.setState({
-      temperature: rep,
-    });
-  }
+
+  componentDidMount() {
+    window.setInterval(function() {
+      this.setState({temperature: this.state.temperature + 1})
+      /*
+      return fetch('https://192.168.1.67/register/')
+        .then(response => response.json())
+        .then(responseJson => {
+          this.setState({temperature: this.state.temperature})
+          //this.setState({temperature: responseJson.temperature})
+          // return responseJson.temperature;
+        })
+        .catch(error => {console.error(error);});
+    */}.bind(this),5000);
+}
 
   render(){
     //this.handleTemperature();

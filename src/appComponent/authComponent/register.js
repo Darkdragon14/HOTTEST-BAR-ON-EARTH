@@ -12,6 +12,7 @@ import Reflux                     from 'reflux';
      ====================================================== */
 import Rest                       from './../../rest.js';
 import Actions                    from './../../actions.js';
+import Store                      from './../../store.js';
 
 
 /* ====================================================
@@ -39,17 +40,24 @@ export default class Register extends Component {
       pro: ''
     };
 
-    this.handleRegister = this.handleRegister.bind(this);
+    this.getRegister = this.getRegister.bind(this);
   };
 
-  handleRegister(){
-    const api = new Rest();
-    var rep;
-    api.register(this.state.pseudo, this.state.password)
-      .then(response => rep = response.token);   // Successfully logged in
-    Alert.alert('La réponse : ' + rep)
-    Actions.register(rep)
+
+  // fonction pour récupérer avec GET {"token" : true}.... Doit faire un post par la suite
+  getRegister(){
+    return fetch('http://192.168.1.67/register')
+      .then(response => response.json())
+      .then(responseJson => {
+        Alert.alert('La réponse : ' + responseJson.token);
+        Actions.register(responseJson.token);
+        // return responseJson.token;
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
+
 
   render(){
     return(
@@ -92,7 +100,7 @@ export default class Register extends Component {
           />
           <View style={styles.myButton}>
             <Button
-              onPress={this.handleRegister}
+              onPress={this.getRegister}
               title="S'enregistrer"/>
           </View>
         </View>

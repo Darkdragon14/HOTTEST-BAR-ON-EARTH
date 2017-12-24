@@ -7,12 +7,11 @@ export default class Store extends Reflux.Store{
     super();
     this.state = {
       check: false, // true : page home, false : page d'authentification
+      checkPage: true, // true : page de login, false : page d'enregistrement
     }
 
     // Very important to use the files actions.js
     this.listenables = Actions;
-
-
   }
 
 /* ====================================================
@@ -31,13 +30,13 @@ export default class Store extends Reflux.Store{
 
   onRegister(rep){
     this.setState({
-      check: true,
+      check: rep,
     })
   }
 
-  onGetTemperature(rep){
+  /*onGetTemperature(rep){
     this.setState({
       temperature: rep,
     })
-  }
+  }*/
 }
