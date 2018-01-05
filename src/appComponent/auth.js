@@ -2,22 +2,29 @@
       REACT
       ====================================================== */
 import React, { Component } from 'react';
-import {Alert, Platform, StyleSheet, Text, View, AppRegistry, Image, TextInput, Button} from 'react-native';
-import { width, height, totalSize } from 'react-native-dimension';
 import Reflux from 'reflux';
-
+import {
+  Alert      ,
+  Platform   ,
+  StyleSheet ,
+  Text       ,
+  View       ,
+  AppRegistry,
+  Image      ,
+  TextInput  ,
+  Button } from 'react-native';
+import {
+  width      ,
+  height     ,
+  totalSize } from 'react-native-dimension';
 
 /* ====================================================
-     JSX FILE FOR INDEX
+     JSX FILE
      ====================================================== */
 import Login    from './authComponent/login.js'
 import Register from './authComponent/register.js'
-import Store  from './../store.js';
 
-/* ====================================================
-      JS LIBRARIE
-      ====================================================== */
-
+import Store    from './../store.js';
 
 /* ====================================================
       FUNCTION
@@ -85,6 +92,9 @@ export default class Auth extends Reflux.Component {
   };
 };
 
+/* ====================================================
+      STYLES
+      ====================================================== */
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
@@ -92,7 +102,7 @@ const styles = StyleSheet.create({
   },
   myButton: {
     width: width(80),
-    backgroundColor: 'white',
+    backgroundColor: 'skyblue',
     marginLeft: width(5),
     marginRight: width(5),
     marginTop: width(3),

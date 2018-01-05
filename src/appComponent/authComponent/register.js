@@ -1,24 +1,30 @@
 /* ====================================================
       REACT
       ====================================================== */
-import React, { Component }       from 'react';
-import {Alert, Platform, StyleSheet, Text, View, AppRegistry, Image, TextInput, Button} from 'react-native';
-import {width, height, totalSize} from 'react-native-dimension';
-import CheckBox                   from 'react-native-checkbox';
-import Reflux                     from 'reflux';
+import React, { Component } from 'react';
+import Reflux   from 'reflux';
+import CheckBox from 'react-native-checkbox';
+import {
+  Alert      ,
+  Platform   ,
+  StyleSheet ,
+  Text       ,
+  View       ,
+  AppRegistry,
+  Image      ,
+  TextInput  ,
+  Button } from 'react-native';
+import {
+  width      ,
+  height     ,
+  totalSize } from 'react-native-dimension';
 
 /* ====================================================
-     JSX FILE FOR INDEX
+     JSX FILE
      ====================================================== */
-import Rest                       from './../../rest.js';
-import Actions                    from './../../actions.js';
-import Store                      from './../../store.js';
-
-
-/* ====================================================
-     JS LIBRARIE
-     ====================================================== */
-
+import Rest    from './../../rest.js';
+import Actions from './../../actions.js';
+import Store   from './../../store.js';
 
 /* ====================================================
      FUNCTION
@@ -87,7 +93,8 @@ export default class Register extends Component {
             style={styles.input}
             placeholder="Email"
             onChangeText={(email) => this.setState({email})}
-          /><TextInput
+          />
+          <TextInput
             style={styles.input}
             placeholder="Confirmation email"
             onChangeText={(confirmEmail) => this.setState({confirmEmail})}
@@ -109,7 +116,9 @@ export default class Register extends Component {
   };
 };
 
-
+/* ====================================================
+      STYLES
+      ====================================================== */
 const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
@@ -137,6 +146,7 @@ const styles = StyleSheet.create({
   },
   myButton: {
     width: width(80),
+    height: height(7),
     backgroundColor: 'white',
     marginLeft: width(5),
     marginRight: width(5),

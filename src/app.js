@@ -8,22 +8,29 @@
        REACT
        ====================================================== */
 import React, { Component } from 'react';
-import {Alert, Platform, StyleSheet, Text, View, AppRegistry, Image, TextInput, Button} from 'react-native';
-import { width, height, totalSize } from 'react-native-dimension';
 import Reflux from 'reflux';
+import {
+  Alert      ,
+  Platform   ,
+  StyleSheet ,
+  Text       ,
+  View       ,
+  AppRegistry,
+  Image      ,
+  TextInput  ,
+  Button } from 'react-native';
+import {
+  width      ,
+  height     ,
+  totalSize } from 'react-native-dimension';
 
 /* ====================================================
-      JSX FILE FOR INDEX
+      JSX FILE
       ====================================================== */
-//import Greeting            from './Greeting.js'
-import Auth   from './appComponent/auth.js'
-import Home   from './appComponent/home.js'
-import Store  from './store.js';
+import Auth  from './appComponent/auth.js'
+import Home  from './appComponent/home.js'
 
-/* ====================================================
-      JS LIBRARIE
-      ====================================================== */
-
+import Store from './store.js';
 
 /* ====================================================
       FUNCTION
@@ -63,7 +70,6 @@ function Greeting(props){
   }
 }
 
-
 /* ====================================================
       CODE
       ====================================================== */
@@ -84,7 +90,9 @@ export default class App extends Reflux.Component {
   }
 }
 
-
+/* ====================================================
+      STYLES
+      ====================================================== */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
