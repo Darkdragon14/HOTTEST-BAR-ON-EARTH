@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import Reflux   from 'reflux';
 import CheckBox from 'react-native-checkbox';
+//import { CheckBox } from 'react-native-elements';
 import {
   Alert      ,
   Platform   ,
@@ -38,11 +39,6 @@ export default class Login extends Reflux.Component {
   constructor(props){
     super(props);
     this.store = Store;
-    this.state = {
-      pseudo: '',
-      password: '',
-      stayConnected: false
-    };
 
     this.postLogin = this.postLogin.bind(this);
   };
@@ -61,7 +57,7 @@ export default class Login extends Reflux.Component {
   render(){
     return(
       <View>
-        <View style={{height: 50, width: width(90), backgroundColor: 'powderblue'}}>
+        <View style={ styles.home }>
           <Text style={styles.welcome}>Night Advisor</Text>
         </View>
         <View style={styles.idPage}>
@@ -77,7 +73,7 @@ export default class Login extends Reflux.Component {
           <CheckBox
             label='Rester Connecté'
             containerStyle={styles.containerCheckbox}
-            checked={this.stayConnected}
+            checked={this.state.stayConnected}
             onChange={(checked) => this.setState({stayConnected: !checked})}
           />
           <View style={styles.myButton}>
@@ -91,18 +87,32 @@ export default class Login extends Reflux.Component {
   };
 };
 
+/*
+<CheckBox
+  title='Rester Connecté'
+  containerStyle={styles.containerCheckbox}
+  checked={this.state.stayConnected}
+  onPress={(checked) => this.setState({stayConnected: !checked})}
+/>*/
+
 /* ====================================================
       STYLES
       ====================================================== */
 const styles = StyleSheet.create({
+  home: {
+    height: 50,
+    width: width(90),
+    backgroundColor: 'midnightblue',
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 12,
+    color: 'white'
   },
   idPage: {
     width: width(90),
-    backgroundColor: 'skyblue',
+    backgroundColor: 'powderblue',
   },
   input: {
     width: width(80),
@@ -114,7 +124,7 @@ const styles = StyleSheet.create({
     marginTop: width(3),
   },
   containerCheckbox: {
-    backgroundColor: 'skyblue',
+    backgroundColor: 'powderblue',
     marginLeft: width(5),
     marginRight: width(5),
     marginTop: width(3),

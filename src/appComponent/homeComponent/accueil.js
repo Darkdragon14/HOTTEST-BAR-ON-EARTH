@@ -36,10 +36,7 @@ import Rest  from './../../rest.js';
 export default class Accueil extends Reflux.Component {
   constructor(props){
     super(props);
-    this.state = {
-      temperature: 1,
-      compteur: 0,
-    };
+    this.store = Store;
 
     //this.getTemperature = this.getTemperature.bind(this);
   };

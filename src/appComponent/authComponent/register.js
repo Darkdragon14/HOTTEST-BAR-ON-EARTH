@@ -37,14 +37,7 @@ import Store   from './../../store.js';
 export default class Register extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      pseudo: '',
-      password: '',
-      confirmPassword: '',
-      email: '',
-      confirmEmail: '',
-      pro: ''
-    };
+    this.store = Store;
 
     this.getRegister = this.getRegister.bind(this);
   };
@@ -127,7 +120,7 @@ const styles = StyleSheet.create({
   },
   idPage: {
     width: width(90),
-    backgroundColor: 'skyblue',
+    backgroundColor: 'powderblue',
   },
   input: {
     width: width(80),
@@ -139,7 +132,7 @@ const styles = StyleSheet.create({
     marginTop: width(3),
   },
   containerCheckbox: {
-    backgroundColor: 'skyblue',
+    backgroundColor: 'powderblue',
     marginLeft: width(5),
     marginRight: width(5),
     marginTop: width(3),

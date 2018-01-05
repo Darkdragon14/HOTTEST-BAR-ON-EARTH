@@ -2,14 +2,14 @@ export const me = {
   "gender": "male",
   "name": {
     "title": "mr",
-    "first": "lance",
-    "last": "thomas"
+    "first": "Thomas",
+    "last": "Lance"
   },
   "location": {
     "street": "6942 first street",
     "city": "elk grove",
     "state": "new hampshire",
-    "postcode": 30411
+    "postcode": '30411'
   },
   "email": "lance.thomas@example.com",
   "login": {

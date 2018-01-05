@@ -8,6 +8,36 @@ export default class Store extends Reflux.Store{
     this.state = {
       check: false, // true : page home, false : page d'authentification
       checkPage: true, // true : page de login, false : page d'enregistrement
+
+      // Login and Register page
+      pseudo: '',
+      password: '',
+      stayConnected: false,
+
+      confirmPassword: '',
+      email: '',
+      confirmEmail: '',
+      pro: '',
+
+      // Accueil page
+      temperature: 1,
+      compteur: 0,
+
+      // Me page
+      nom: 'yvert',
+      prenom: '',
+      birthdate: '',
+      street: '',
+      city: '',
+      postcode: '',
+      language: 'Français', 
+
+      // liste page
+      search: '',
+
+
+      // variable test
+      check: false,
     }
 
     // Very important to use the files actions.js
@@ -31,6 +61,12 @@ export default class Store extends Reflux.Store{
   onRegister(rep){
     this.setState({
       check: rep,
+    })
+  }
+
+  onUpdateMe(){
+    this.setState({
+      update: true,
     })
   }
 

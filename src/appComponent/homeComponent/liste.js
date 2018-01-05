@@ -17,6 +17,8 @@ import {
   width      ,
   height     ,
   totalSize } from 'react-native-dimension';
+import { SearchBar } from 'react-native-elements'
+import SimplePicker from 'react-native-simple-picker';
 
 /* ====================================================
      JSX FILE
@@ -27,16 +29,32 @@ import Rest  from './../../rest.js';
 /* ====================================================
       FUNCTION
       ====================================================== */
+      const options = ['Option1', 'Option2', 'Option3'];
 
 
 /* ====================================================
       CODE
       ====================================================== */
 export default class Liste extends Reflux.Component {
+  constructor(props){
+    super(props);
+    this.store = Store;
+    this.state = {
+      selectedOption: '',
+    };
+  }
+
   render(){
     //this.handleTemperature();
     return(
       <View style={styles.accueil}>
+        <SearchBar
+          lightTheme
+          onChangeText={this.state.search}
+          onClearText={this.state.search}
+          placeholder='Search Here...'>
+        </SearchBar>
+        
         <Text>Je suis dans la liste</Text>
       </View>
     );

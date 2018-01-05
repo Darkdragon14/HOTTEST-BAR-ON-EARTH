@@ -18,6 +18,7 @@ import {
   width      ,
   height     ,
   totalSize } from 'react-native-dimension';
+import { Header } from 'react-native-elements';
 
 /* ====================================================
      JSX FILE
@@ -40,7 +41,13 @@ export default class Home extends Reflux.Component {
     //this.handleTemperature();
     return (
       <View style={styles.vue}>
-        <StatusBar barStyle = "dark-content" hidden = {false}></StatusBar>
+        <StatusBar
+          barStyle="light-content">
+        </StatusBar>
+        <Header
+          centerComponent={{ text: 'Night Advisor', style: { color: '#fff' } }}
+          backgroundColor={'midnightblue'}
+        />
         <Root/>
       </View>
     );
@@ -53,7 +60,7 @@ export default class Home extends Reflux.Component {
 const styles = StyleSheet.create({
   vue: {
     width: width(100),
-    height: height(97),
-    marginTop: height(3),
+    height: height(100),
+    //marginTop: height(3),
   }
 })

@@ -98,11 +98,11 @@ export default class Auth extends Reflux.Component {
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
-    backgroundColor: 'skyblue',
+    backgroundColor: 'powderblue',
   },
   myButton: {
     width: width(80),
-    backgroundColor: 'skyblue',
+    backgroundColor: 'powderblue',
     marginLeft: width(5),
     marginRight: width(5),
     marginTop: width(3),
