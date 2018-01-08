@@ -15,8 +15,6 @@ var headers = {
 
 setTimeout(function(){calculMoyenneTemp();}, 2000);
 
-//sendToServer(12.6,"temperature");
-
 setInterval(function(){
 				calculMoyenneTemp();
 			//	calculMoyennedB();
@@ -30,7 +28,7 @@ setInterval(function(){
 var now = new Date();
 var millisTill7 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 15, 22, 0, 0) - now;
 if (millisTill7 < 0) {
-     millisTill7 += 86400000; // it's after 10am, try 10am tomorrow.
+     millisTill7 += 86400000; // it's after 7am, try 7am tomorrow.
 }
 console.log("test : "+millisTill7);
 setTimeout(function(){console.log("il est 7 heure");}, millisTill7);
@@ -38,12 +36,9 @@ setTimeout(function(){console.log("il est 7 heure");}, millisTill7);
 var somme;
 var i;
 
-function calculSomme(data,res,callback){
+function calculSommeTemp(res,callback){
 	res.forEach(function(obj){
-		//donnee=JSON.parse(data);
- 		console.log(obj.temperature + " à " + obj.date);
  		somme=somme+obj.temperature;
- 		console.log("La somme est "+somme);
  		i++;
 	});
 	callback();
@@ -56,10 +51,8 @@ function calculMoyenneTemp (){
 	var temperature;
 	bdd_bar.getData("TemperatureCollection")
 		.then(function(res){
-			calculSomme("temperature",res,function(){
-				console.log("test callback");
+			calculSomme(res,function(){
 				var moyenne = somme/i;
-				console.log("La moyenne est "+moyenne);
 				sendToServer(moyenne,"temperature");
 				bdd_bar.clean("TemperatureCollection");
 			})
