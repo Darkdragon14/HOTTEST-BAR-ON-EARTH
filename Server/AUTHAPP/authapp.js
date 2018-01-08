@@ -3,6 +3,7 @@ const port = 8080
 
 const app = require('express')()
 const server = require('http').createServer(app)
+var request = require("request");
 
 var connected = []
 
@@ -25,7 +26,15 @@ app.get('/login/', function(req, res){
 
 app.get('/register/', function(req, res){
   // Appel reco
-  res.send("Parameters : " + req.query.user_id)
+  var options = { method: 'GET',
+  url: 'http://reco:8000/newClient/Bob&pop&biere&10&20'};
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+
+    console.log(body);
+  });
+  res.json({token : true})
 })
 
 app.listen(port, function(){

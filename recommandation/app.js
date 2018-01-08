@@ -10,7 +10,7 @@ const Recommender = require('likely');
 const request = require('request');
 
 const dataLive = {
-  hostname: 'localhost',
+  hostname: 'db_server',
   port: 3000,
   path: '/getDataLive',
   method: 'GET',
@@ -24,7 +24,7 @@ const dataLive = {
 //Pour un poid plus fort d'un valeur il faut répéter l'élément plusieurs fois
 var fields = [
   	{ name: "temperature", measure: nn.comparisonMethods.number, max: 50 },
-  	{ name: "bar", measure: nn.comparisonMethods.word }, 
+  	{ name: "bar", measure: nn.comparisonMethods.word },
   	{ name: "musique", measure: nn.comparisonMethods.word },
   	{ name: "occupation", measure: nn.comparisonMethods.number, max: 500 },
 ];
@@ -34,7 +34,7 @@ Lorsqu'un client se connect à l'application
 ****************************************************************/
 app.get('/newClient/:IDUser&:musique&:bar&:occupation&:temperature', function(req, res){
     var query = {IDUser: req.params.IDUser, temperature: parseInt(req.params.temperature), bar: req.params.bar, musique: req.params.musique, occupation: parseInt(req.params.occupation)};
-    
+
     res.send("Ok");
     http.get(dataLive, function(resp){
 		resp.setEncoding('utf8');
@@ -50,12 +50,12 @@ app.get('/newClient/:IDUser&:musique&:bar&:occupation&:temperature', function(re
 			  	console.log([{IDUser: query.IDUser, IDBar: nearestNeighbor.IDBar, Probability: probability}]);
 			  	//dataRecoWithLive.json = {"IDUser": query.IDUser, "IDBar": nearestNeighbor.IDBar, "Probability": probability};
 
-			  	var options = { 
+			  	var options = {
 			  		method: 'POST',
-				  	url: 'http://localhost:3000/sendRecommandations',
+				  	url: 'http://db_server:3000/sendRecommandations',
 				  	headers: {'Content-Type': 'application/json'},
 				  	body: { IDUser: query.IDUser, IDBar: nearestNeighbor.IDBar, Probability: probability },
-				  	json: true 
+				  	json: true
 				};
 
 				request(options, function (error, response, body) {

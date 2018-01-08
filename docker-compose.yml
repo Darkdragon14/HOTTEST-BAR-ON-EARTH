@@ -5,6 +5,7 @@ services:
     restart: always
     ports:
       - "80:80"
+      - "443:443"
     networks:
       - overlay
     depends_on:
@@ -54,6 +55,16 @@ services:
       - ./data:/data/db
     ports:
       - "27017"
+    networks:
+      - overlay
+
+  reco:
+    restart: always
+    build: ./recommandation
+    ports:
+      - "8000"
+    depends_on:
+      - db_server
     networks:
       - overlay
 
