@@ -4,7 +4,7 @@
 
 
 var bdd_bar=require("../BDD-BAR/app.js");
-var sensor=require("node-dht-sensor");
+//var sensor=require("node-dht-sensor");
 const request = require('request');					/////////////http ok, recuperer la bonne temperature avec la bdd
 
 // Set the headers
@@ -15,11 +15,9 @@ var headers = {
 
 
 setTimeout(function(){calculMoyenneTemp();}, 2000);
-setTimeout(function(){conversion();}, 2000);
 
-
-
-
+//////////////////////////////a deplacer dans le fichier de mouna////////
+/*
 //temperature toute les 5 minutes
 var temp = setInterval(conversion, 500*60);
 
@@ -32,6 +30,8 @@ function conversion(){
                 }
         });
 }
+*/
+//////////////////////////////////////////////////////////////////////////
 
 setInterval(function(){
 				calculMoyenneTemp();
@@ -46,12 +46,12 @@ if (millisTill7 < 0) {
 console.log("test : "+millisTill7);
 setTimeout(function(){console.log("il est 7 heure");}, millisTill7);
 
-var somme;
-var i;
+var sommeTemp, sommePers;
+var i, j;
 
 function calculSommeTemp(res,callback){
 	res.forEach(function(obj){
- 		somme=somme+obj.temperature;
+ 		sommeTemp=sommeTemp+obj.temperature;
  		i++;
 	});
 	callback();
@@ -59,70 +59,48 @@ function calculSommeTemp(res,callback){
 
 
 function calculMoyenneTemp (){
-	somme=0;
+	sommeTemp=0;
 	i=0;
 	var temperature;
 	bdd_bar.getData("TemperatureCollection")
 		.then(function(res){
-			calculSomme(res,function(){
-				var moyenne = somme/i;
+			calculSommeTemp(res,function(){
+				var moyenne = sommeTemp/i;
 				sendToServer(moyenne,"temperature");
 				// bdd_bar.clean("TemperatureCollection");
 			})
 		});
-/*
-	var data=JSON.parse(db.getData(PersonneCollection)
-      .then(function(res){
-        res.forEach(function(obj){
-          console.log(obj.nbPersonne + "à " + obj.date);
-        });
-      }););
-	var somme;
-	data.forEach(function(object){
-		somme=somme+object.temperature;			//vérifier que temperature n'est pas une string
-	})*/
-	
-	//var moyenne = somme/i;
-	//console.log("La moyenne est "+moyenne);
-	//sendToServer(moyenne,"temperature");
-	//cleandb.clean();
-//	return Math.round(moyenne);
 }
-/*
-function calculMoyennedB (){
-	var data=JSON.parse(get30Sound());
-	var somme;
-	for(var i in data.datas[]){							//si le tableau a un nom
-		somme=somme+data.datas[i].son;			//sinon data[i].temperarure
-	}
-	var moyenne = somme/i;
-	sendToServer(moyenne,"son");
-	//return Math.round(moyenne);
+
+function calculSommePers(res,callback){
+	res.forEach(function(obj){
+ 		sommePers=sommePers+obj.nbPersonne;
+ 		j++;
+	});
+	callback();
 }
 
 function calculMoyennePersonne (){
-	var data=JSON.parse(getNbPersonne());
-	var somme;
-	for(var i in data.datas[]){							//si le tableau a un nom
-		somme=somme+data.datas[i].personne;			//sinon data[i].temperarure
-	}
-	var moyenne = somme/i;
-	sendToServer(moyenne,"presence");
-	//return Math.round(moyenne);
+	sommePers=0;
+	j=0;
+	var personne;
+	bdd_bar.getData("PersonneCollection")
+		.then(function(res){
+			calculSommePers(res,function(){
+				var moyenne = sommePers/j;
+				sendToServer(moyenne,"nbPersonne");
+				// bdd_bar.clean("TemperatureCollection");
+			})
+		});
 }
-*/
+
 
 function sendToServer (moyenne, data){
-	/*var msg={
-		moyenne : Math.round(moyenne),
-		data : data
-	};*/
-
 	// Configure the request
 	var options = {
 	    url: 'http://172.20.10.3/updateData/',
 	    //url: 'http://localhost:8082/updateData/',
-            method: 'POST',
+        method: 'POST',
 	    headers: headers,
 	    //form: {'bar_id': '12'}
 	    form : {
@@ -130,6 +108,7 @@ function sendToServer (moyenne, data){
 			data : data
 		}
 	};
+	
 	console.log("send temp " + moyenne);
 	// Start the request
 	request(options, function (error, response, body) {
