@@ -12,10 +12,26 @@ import Accueil    from './../appComponent/homeComponent/accueil.js';
 import Liste      from './../appComponent/homeComponent/liste.js';
 import Historique from './../appComponent/homeComponent/historique.js';
 import Me         from './../appComponent/homeComponent/me.js';
-import Bar        from './../appComponent/homeComponent/bar.js';
+import BarDetail  from './../appComponent/homeComponent/listeComponent/barDetail.js';
+
 /* ====================================================
       CODE
       ====================================================== */
+export const ListeStack = StackNavigator({
+  Liste: {
+    screen: Liste,
+    navigationOptions: {
+      title: 'Liste',
+    },
+  },
+  Details: {
+    screen: BarDetail,
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.name.title.toUpperCase()}`,
+    }),
+  },
+});
+
 export const Tabs = TabNavigator({
   Accueil: {
     screen: Accueil,
@@ -25,14 +41,14 @@ export const Tabs = TabNavigator({
     }
   },
   Liste: {
-    screen: Liste,
+    screen: ListeStack,
     navigationOptions: {
       tabBarLabel: 'Liste soirée',
       tabBarIcon:({ tintColor }) => <Icon name="explore" size={35} color={tintColor} />,
     }
   },
   Historique: {
-    screen: Bar,
+    screen: Historique,
     navigationOptions: {
       tabBarLabel: 'Historique',
       tabBarIcon:({ tintColor }) => <Icon name="list" size={35} color={tintColor} />,

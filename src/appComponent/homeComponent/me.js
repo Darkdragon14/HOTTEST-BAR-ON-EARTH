@@ -72,7 +72,7 @@ export default class Me extends Reflux.Component {
             <FormLabel>Nom</FormLabel>
             <FormInput
               onChangeText={(nom) => this.setState({nom})}
-              value={this.props.name.last}>
+              value={this.state.nom}>
             </FormInput>
 
             <FormLabel>Prénom</FormLabel>

@@ -1,6 +1,8 @@
 import Reflux from 'reflux';
 
 import Actions from './actions.js';
+import { me } from './appComponent/homeComponent/meComponent/data.js'
+
 
 export default class Store extends Reflux.Store{
   constructor(){
@@ -22,15 +24,16 @@ export default class Store extends Reflux.Store{
       // Accueil page
       temperature: 1,
       compteur: 0,
+      abc: '',
 
       // Me page
-      nom: 'yvert',
+      nom: 'Yvert',
       prenom: '',
       birthdate: '',
       street: '',
       city: '',
       postcode: '',
-      language: 'Français', 
+      language: 'Français',
 
       // liste page
       search: '',
