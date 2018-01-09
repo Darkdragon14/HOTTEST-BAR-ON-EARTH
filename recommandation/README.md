@@ -2,6 +2,7 @@
 
 Pour faire de la recommendation, nous utilisons :
 * [nearest-neighbor](https://github.com/aschuch/node-nearest-neighbor)
+
 Autres paquets utilisés :
 * [express](https://github.com/expressjs/express)
 * [request](https://github.com/request/request)
