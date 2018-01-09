@@ -25,7 +25,9 @@ import {
   FormLabel  ,
   FormInput  ,
   Button     ,
-  FormValidationMessage } from 'react-native-elements';
+  FormValidationMessage,
+  Rating 
+  } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker'
 import SimplePicker from 'react-native-simple-picker';
 
@@ -37,7 +39,7 @@ import Rest    from './../../rest.js';
 import Actions from './../../actions.js';
 
 import { me } from './meComponent/data.js'
-
+import { bar } from './listeComponent/dataBar.js';
 /* ====================================================
       FUNCTION
       ====================================================== */
@@ -62,9 +64,8 @@ export default class Me extends Reflux.Component {
       <View style={styles.accueil}>
         <ScrollView>
           <Tile
-            imageSrc={{ uri: this.props.picture.large}}
             featured
-            title={`${this.props.name.first.toUpperCase()} ${this.props.name.last.toUpperCase()}`}
+            title={`${bar.name}`}
             caption={this.props.email}
           />
 
@@ -86,30 +87,7 @@ export default class Me extends Reflux.Component {
               value={this.props.email}>
             </FormInput>
 
-            <FormLabel>Date de naissance</FormLabel>
-            <DatePicker
-              style={{width: width(90)}}
-              date={this.state.birthdate}
-              mode="date"
-              placeholder="select date"
-              format="YYYY-MM-DD"
-              minDate="1940-01-01"
-              maxDate="2018-01-30"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: width(5)
-                },
-                dateInput: {
-                  marginLeft: width(15)
-                }
-              }}
-              onDateChange={(date) => {this.setState({birthdate: date})}}
-            />
+           
 
             <FormLabel>Adresse</FormLabel>
             <FormInput
@@ -129,21 +107,7 @@ export default class Me extends Reflux.Component {
               value={this.props.location.city}>
             </FormInput>
 
-            <FormLabel>Langue</FormLabel>
-            <Text
-              style={ styles.picker }
-              onPress={() => {this.refs.picker.show();}}>
-              {this.state.language}
-            </Text>
-            <SimplePicker
-              ref={'picker'}
-              options={options}
-              onSubmit={(option) => {
-                this.setState({
-                  language: option,
-                });
-              }}
-            />
+           
           </List>
 
           <Button

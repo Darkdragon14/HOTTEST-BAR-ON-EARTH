@@ -42,9 +42,12 @@ export default class Home extends Reflux.Component {
     return (
       <View style={styles.vue}>
         <StatusBar
-          barStyle="dark-content">
+          barStyle="light-content">
         </StatusBar>
-
+        <Header
+          centerComponent={{ text: 'Night Advisor', style: { color: '#fff' } }}
+          backgroundColor={'midnightblue'}
+        />
         <Root/>
       </View>
     );
@@ -61,8 +64,3 @@ const styles = StyleSheet.create({
     //marginTop: height(3),
   }
 })
-
-/*<Header
-  centerComponent={{ text: 'Night Advisor', style: { color: '#fff' } }}
-  backgroundColor={'midnightblue'}
-/>*/
