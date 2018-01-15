@@ -12,53 +12,17 @@ var SoundCollection = "SoundCollection";
 var db;
 
 MongoClient.connect(url, function(err, database) {
+
   if (err) throw err;
 
+
   		db=database;
-  		
-      /*
-            ----   Exemple pour récupérer nombre de personne ----
-      
-      getData(PersonneCollection)
-      .then(function(res){
-        res.forEach(function(obj){
-          console.log(obj.nbPersonne + "à " + obj.date);
-        });
-      });
-
-            ----   Exemple pour écrire dans la bdd  -----
-      
-      writeTemperature(20.5);
-      writeSound(12);
-      writePersonne(21);
-        
-
-            ----    Exemple pour suppriemr toutes les données d'une collection :  ---
-            
-      clean(PersonneCollection);
-     */
+      console.log("test db");
 });
 
 
-conversion();
-//temperature toute les 5 minutes
-var temp = setInterval(conversion, 5000*60);
 
-function conversion(){
-        sensor.read(22, 4, function(err, temperature) {
-                if (!err) {
-                	console.log('temp: ' + temperature.toFixed(1) + '°C');
-               	 	MongoClient.connect(url, function(err, database) {
-  				if (err) throw err;
-  				db=database;
-                		writeTemperature(temperature.toFixed(1));
-                	});
-                }
-        });
-}
-
-
-function writeTemperature (temperatureBar){
+function writeTemperatureFct (temperatureBar){
 
   var myobj = { temperature: temperatureBar, date: new Date() };
 
@@ -66,12 +30,14 @@ function writeTemperature (temperatureBar){
     if (err) throw err;
     console.log("1 document inserted" + res);
 
-    db.close();
+   // db.close();
   }); 
 
 }
 
-function writeSound(niveauDbBar){
+exports.writeTemperature=writeTemperatureFct;
+
+function writeSoundFct(niveauDbBar){
 
   var myobj = { niveau: niveauDbBar, date: new Date() };
 
@@ -83,6 +49,8 @@ function writeSound(niveauDbBar){
   }); 
 
 }
+
+exports.writeSound=writeSoundFct;
 
 function writePersonne (nbPersonneBar){
 
@@ -97,8 +65,10 @@ function writePersonne (nbPersonneBar){
 
 }
 
-function getData (collection){
- 
+exports.writePersonne=writePersonneFct;
+
+var getDataFct = function getData (collection,callback){
+console.log("test ok");
  return new Promise(function(resolve, reject) {
     var result = db.collection(collection).find().toArray();
     if (result) {
@@ -109,10 +79,11 @@ function getData (collection){
     });
 }
 
+exports.getData=getDataFct;
 
 
 
-function clean(collection) {
+var cleanFct= function clean(collection) {
 
 	db.collection(collection).drop(function(err, delOK) {
     if (err) throw err;
@@ -120,3 +91,5 @@ function clean(collection) {
     db.close();
   });
 }
+
+exports.clean=cleanFct;

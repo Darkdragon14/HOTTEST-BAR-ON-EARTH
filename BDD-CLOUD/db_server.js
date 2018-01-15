@@ -5,20 +5,23 @@ var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 var mysql = require("mysql");
 var port = 3000;
-var hostname = 'localhost'; 
+var hostname = 'db_server';
 var app = express();
-var myRouter = express.Router(); 
+var myRouter = express.Router();
 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+<<<<<<< HEAD
 
 //_______________________________________________________________________________________________
 //    MONGO DB (NO SQL)
 //_______________________________________________________________________________________________
 
+=======
+>>>>>>> 3809a35f1393f9576e127c316369b0d46e15540c
 mongoose.connect('mongodb://mongo/nightadvisor') ;
 
 //Modèles Mongoose
@@ -29,34 +32,34 @@ var avisUsers = mongoose.Schema({
 });
 
 var temperature = mongoose.Schema({
-    moyenne: String, 
-    data: String     
-}); 
+    moyenne: String,
+    data: String
+});
 
 var dataLive = mongoose.Schema({
-    IDBar: String, 
-    temperature: Number, 
+    IDBar: String,
+    temperature: Number,
     bar: String,
-    musique: String,    
-    occupation: Number 
-}); 
+    musique: String,
+    occupation: Number
+});
 
 var recommandations = mongoose.Schema({
     IDUser: String,
     IDBar: String,
     Probability: Number
-}); 
+});
 
-var Avis = mongoose.model('Avis', avisUsers); 
-var Temperature = mongoose.model('Temperature', temperature); 
-var DataLive = mongoose.model('DataLive', dataLive); 
-var Recommandations = mongoose.model('Recommandations', recommandations); 
+var Avis = mongoose.model('Avis', avisUsers);
+var Temperature = mongoose.model('Temperature', temperature);
+var DataLive = mongoose.model('DataLive', dataLive);
+var Recommandations = mongoose.model('Recommandations', recommandations);
 
 
 //ROUTES
 
 //Principale
-myRouter.route('/')
+myRouter.route('/bdd_na')
 .all(function(req,res){
       res.json({message : "Bienvenue sur le serveur rattaché aux différentes bases de données de l'application Night Advisor"});
 });
@@ -81,8 +84,8 @@ myRouter.route('/avis')
           res.send(err);
         }
         res.json({message : "Avis enregistré"});
-      }); 
-}); 
+      });
+});
 
 
 myRouter.route('/avis/:avis_id')
@@ -94,7 +97,7 @@ myRouter.route('/avis/:avis_id')
         });
 })
 
-/* 
+/*
 .put(function(req,res){
                 Avis.findById(req.params.avis_id, function(err, avis) {
                 if (err){
@@ -112,25 +115,24 @@ myRouter.route('/avis/:avis_id')
                 });
 })
 .delete(function(req,res){
-
     Avis.remove({_id: req.params.avis_id}, function(err, avis){
         if (err){
             res.send(err);
         }
-        res.json({message:"Avis supprimé"}); 
-    }); 
-    
+        res.json({message:"Avis supprimé"});
+    });
+
 });*/
 
 //Température
 myRouter.route('/updateData')
-.get(function(req,res){ 
+.get(function(req,res){
   Temperature.find(function(err, temperature){
         if (err){
-            res.send(err); 
+            res.send(err);
         }
-        res.json(temperature);  
-    }); 
+        res.json(temperature);
+    });
 })
 .post(function(req,res){
       var temperature = new Temperature();
@@ -141,13 +143,13 @@ myRouter.route('/updateData')
           res.send(err);
         }
         res.json({message : "Temperature enregistrée"});
-      }); 
-}); 
+      });
+});
 
 
 //Recherche température par bar (avec l'idBar)
 /*myRouter.route('/temperature/:temperature.moyTemp')
-.get(function(req,res){ 
+.get(function(req,res){
             Temperature.find({ 'moyTemp': 'variable' }, function(err, temperature) {
             if (err)
                 res.send(err);
@@ -158,17 +160,17 @@ myRouter.route('/updateData')
 
 //DataLive
 myRouter.route('/getDataLive')
-.get(function(req,res){ 
+.get(function(req,res){
   DataLive.find(function(err, dataLive){
         if (err){
-            res.send(err); 
+            res.send(err);
         }
-        res.json(dataLive);  
-    }); 
+        res.json(dataLive);
+    });
 })
 .post(function(req,res){
       var dataLive = new DataLive();
-      dataLive.IDBar = req.body.idBar;
+      dataLive.IDBar = req.body.IDBar;
       dataLive.temperature = req.body.temperature;
       dataLive.bar = req.body.bar;
       dataLive.musique = req.body.musique;
@@ -178,18 +180,18 @@ myRouter.route('/getDataLive')
           res.send(err);
         }
         res.json({message : "Données enregistrées"});
-      }); 
-}); 
+      });
+});
 
 //Recommandations
 myRouter.route('/sendRecommandations')
-.get(function(req,res){ 
+.get(function(req,res){
   Recommandations.find(function(err, recommandations){
         if (err){
-            res.send(err); 
+            res.send(err);
         }
-        res.json(recommandations);  
-    }); 
+        res.json(recommandations);
+    });
 })
 .post(function(req,res){
       var recommandations = new Recommandations();
@@ -201,8 +203,8 @@ myRouter.route('/sendRecommandations')
           res.send(err);
         }
         res.json({message : "Recommandation enregistrée"});
-      }); 
-}); 
+      });
+});
 
 
 //_______________________________________________________________________________________________
@@ -328,6 +330,5 @@ app.put('/updateBar', function (req, res) {
 //_______________________________________________________________________________________________
 app.use(myRouter);
 app.listen(port, function(){
-	console.log("Mon serveur fonctionne sur http://"+ hostname +":"+port);
+  console.log("Mon serveur fonctionne sur http://"+ hostname +":"+port);
 });
-

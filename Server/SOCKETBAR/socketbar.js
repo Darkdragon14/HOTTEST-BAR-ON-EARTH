@@ -29,11 +29,6 @@ app.post('/connectBar/', function(req, res){
   res.send(req.body.data+" = "+ req.body.moyenne);
 })
 
-app.post('/updateData/', function(req, res){
-  console.log(req.body.data+" = "+ req.body.moyenne);
-  res.send(req.body.data+" = "+ req.body.moyenne);
-})
-
 app.listen(port, function(){
   console.log('listening on : ' + port)
 })
