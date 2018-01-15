@@ -67,7 +67,7 @@ function calculMoyenneTemp (){
 			calculSommeTemp(res,function(){
 				var moyenne = sommeTemp/i;
 				sendToServer(moyenne,"temperature");
-				// bdd_bar.clean("TemperatureCollection");
+				// bdd_bar.clean("TemperatureCollection");		//supprimer les donnees car sinon la fonction prendra fera une moyenne de toute les donnees au lieu de faire sur les 30 derniere min
 			})
 		});
 }
