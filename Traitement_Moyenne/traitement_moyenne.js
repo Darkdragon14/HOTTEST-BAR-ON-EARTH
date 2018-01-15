@@ -17,22 +17,7 @@ var headers = {
 
 setTimeout(function(){calculMoyenneTemp();calculMoyennePersonne();}, 2000);
 
-//////////////////////////////a deplacer dans le fichier de mouna////////
-/*
-//temperature toute les 5 minutes
-var temp = setInterval(conversion, 5*60000);
 
-function conversion(){
-        sensor.read(22, 4, function(err, temperature) {
-                if (!err) {
-                	console.log('temp: ' + temperature.toFixed(1) + '°C');
-               	 	bdd_bar.writeTemperature(temperature.toFixed(1));
-                	
-                }
-        });
-}
-*/
-//////////////////////////////////////////////////////////////////////////
 
 setInterval(function(){
 				calculMoyenneTemp();

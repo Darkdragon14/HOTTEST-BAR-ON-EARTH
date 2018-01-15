@@ -1,0 +1,14 @@
+{
+  "name": "temperature",
+  "version": "1.0.0",
+  "description": "temperature toute les 5 minutes",
+  "main": "temperature.js",
+  "scripts": {
+    "test": "node temperature.js"
+  },
+  "author": "Mouna TAMOUDI",
+  "license": "ISC",
+  "dependencies": {
+    "node-dht-sensor": "0.0.33"
+  }
+}

@@ -212,9 +212,9 @@ myRouter.route('/sendRecommandations')
 //Database connection
 
 /*var connection = mysql.createConnection({
-  host     : 'localhost', //mysql database host name
-  user     : 'root', //mysql database user name
-  password : 'chantepie', //mysql database password
+  host     : 'mysql', //mysql database host name
+  user     : 'user', //mysql database user name
+  password : 'password', //mysql database password
   database : 'test' //mysql database name
 });
 
