@@ -7,3 +7,4 @@ RUN npm install
 COPY . /usr/src/node
 EXPOSE 3000
 CMD [ "node", "db_server.js" ]
+
