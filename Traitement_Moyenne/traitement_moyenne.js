@@ -15,15 +15,15 @@ var headers = {
 
 
 setTimeout(function(){calculMoyenneTemp();}, 2000);
-setTimeout(function(){conversion();}, 2000);
+setTimeout(function(){writeTemperatureBD();}, 2000);
 
 
 
 
 //temperature toute les 5 minutes
-var temp = setInterval(conversion, 500*60);
+var temp = setInterval(writeTemperatureBD, 500*60);
 
-function conversion(){
+function writeTemperatureBD(){
         sensor.read(22, 4, function(err, temperature) {
                 if (!err) {
                 	console.log('temp: ' + temperature.toFixed(1) + '°C');
