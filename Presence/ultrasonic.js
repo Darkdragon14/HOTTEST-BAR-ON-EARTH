@@ -15,6 +15,8 @@ var numberOfPerson = 0;
 trigger1.digitalWrite(0); // Make sure trigger is low
 trigger2.digitalWrite(0);
 
+setTimeout(function(){writePersonDB();}, 2000);
+
 (function () {
   var startTick1;
   var startTick2;
