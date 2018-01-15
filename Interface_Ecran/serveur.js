@@ -16,18 +16,36 @@ app.get('/', function(req, res){
 var sock;
 io.on('connection', function(socket){
     sock=socket;
+
+    //////////Refresh de la temperature////////////
+    bdd_bar.getData("TemperatureCollection")
+	.then(function(res){
+		refreshTemperature(res[res.length-1].temperature);
+	});
     setInterval(function(){
 	    bdd_bar.getData("TemperatureCollection")
 		.then(function(res){
 			refreshTemperature(res[res.length-1].temperature);
 		});
-	}, 500*60);			//toutes les 5 minutes
+	}, 5*60000);			//toutes les 5 minutes
+
+    //////////Refresh du nb de personne////////////
+	bdd_bar.getData("PersonneCollection")
+	.then(function(res){
+		refreshNbPersonne(res[res.length-1].nbPersonne);
+	});
+	setInterval(function(){
+	    bdd_bar.getData("PersonneCollection")
+		.then(function(res){
+			refreshNbPersonne(res[res.length-1].nbPersonne);
+		});
+	}, 60000);			//toutes les minutes
 
 });
 
 
-http.listen(8080, function(){
-	console.log('listening on *:8080');
+http.listen(8090, function(){
+	console.log('listening on *:8090');
 });
 
 function refreshTemperature(temperature){

@@ -2,10 +2,11 @@
 //var socket = new WebSocket("ws://www.example.com/socketserver");
 //var socket=io.connect('http://localhost:8082');
 
+const address_server = "192.168.0.0" ;
 
 var bdd_bar=require("../BDD-BAR/app.js");
 //var sensor=require("node-dht-sensor");
-const request = require('request');					/////////////http ok, recuperer la bonne temperature avec la bdd
+const request = require('request');				
 
 // Set the headers
 var headers = {
@@ -14,12 +15,12 @@ var headers = {
 };
 
 
-setTimeout(function(){calculMoyenneTemp();}, 2000);
+setTimeout(function(){calculMoyenneTemp();calculMoyennePersonne();}, 2000);
 
 //////////////////////////////a deplacer dans le fichier de mouna////////
 /*
 //temperature toute les 5 minutes
-var temp = setInterval(conversion, 500*60);
+var temp = setInterval(conversion, 5*60000);
 
 function conversion(){
         sensor.read(22, 4, function(err, temperature) {
@@ -35,7 +36,7 @@ function conversion(){
 
 setInterval(function(){
 				calculMoyenneTemp();
-			//	calculMoyennedB();
+				calculMoyennePersonne();
 			}, 60000);			//toute les minute pour la demo
 
 var now = new Date();
@@ -43,15 +44,17 @@ var millisTill7 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 15,
 if (millisTill7 < 0) {
      millisTill7 += 86400000; // it's after 7am, try 7am tomorrow.
 }
-console.log("test : "+millisTill7);
-setTimeout(function(){console.log("il est 7 heure");}, millisTill7);
+
+setTimeout(function(){console.log("il est 7 heure");}, millisTill7);		//!!!!!!!!!!!!!!!!!!!moyenne une fois par jour
 
 var sommeTemp, sommePers;
 var i, j;
 
 function calculSommeTemp(res,callback){
 	res.forEach(function(obj){
- 		sommeTemp=sommeTemp+obj.temperature;
+		console.log("Temperature valeur "+i+" : "+obj.temperature);
+ 		sommeTemp=sommeTemp+parseFloat(obj.temperature);
+ 		console.log("somme Temperature apres ajout : "+sommeTemp);
  		i++;
 	});
 	callback();
@@ -74,7 +77,9 @@ function calculMoyenneTemp (){
 
 function calculSommePers(res,callback){
 	res.forEach(function(obj){
- 		sommePers=sommePers+obj.nbPersonne;
+		console.log("Personne valeur "+j+" : "+obj.nbPersonne);
+ 		sommePers=sommePers+parseInt(obj.nbPersonne);
+ 		console.log("somme Personne apres ajout : "+sommePers);
  		j++;
 	});
 	callback();
@@ -94,11 +99,10 @@ function calculMoyennePersonne (){
 		});
 }
 
-
 function sendToServer (moyenne, data){
 	// Configure the request
 	var options = {
-	    url: 'http://172.20.10.3/updateData/',
+	    url: 'https://'+address_server+'/updateData/',
 	    //url: 'http://localhost:8082/updateData/',
         method: 'POST',
 	    headers: headers,
@@ -116,7 +120,7 @@ function sendToServer (moyenne, data){
 	        // Print out the response body
 	        console.log(body)
 	    }else{
-		console.log("error" + error +  response.statusCode);
+			console.log("error" + error +  response.statusCode);
 		}
 	});
 }

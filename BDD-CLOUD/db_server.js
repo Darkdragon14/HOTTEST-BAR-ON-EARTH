@@ -14,14 +14,12 @@ var myRouter = express.Router();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-<<<<<<< HEAD
 
 //_______________________________________________________________________________________________
 //    MONGO DB (NO SQL)
 //_______________________________________________________________________________________________
 
-=======
->>>>>>> 3809a35f1393f9576e127c316369b0d46e15540c
+
 mongoose.connect('mongodb://mongo/nightadvisor') ;
 
 //Modèles Mongoose
