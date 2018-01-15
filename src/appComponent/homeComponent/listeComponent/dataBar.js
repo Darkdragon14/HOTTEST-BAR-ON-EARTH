@@ -41,7 +41,7 @@ export const bars = [
   },
   {
     "name": {
-      "title": "La case à bière",
+      "title": "La case",
     },
     "location": {
       "street": "Route de Paris",
@@ -68,7 +68,7 @@ export const bars = [
     "infoComp": {
       "wifi": true,
       "accesibilite": true,
-      "musique": "Pas de musique"
+      "musique": "No music"
     },
     "login": {
       "username": "goldenduck344",

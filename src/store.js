@@ -41,6 +41,12 @@ export default class Store extends Reflux.Store{
 
       // variable test
       check: false,
+      checkBeer: true,
+      checkCocktail: true,
+      checkRock: false,
+      checkRap: false,
+      checkHipHop: false,
+      checkRaeggae: false,
     }
 
     // Very important to use the files actions.js

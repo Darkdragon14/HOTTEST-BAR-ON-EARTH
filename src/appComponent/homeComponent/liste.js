@@ -60,7 +60,7 @@ export default class Liste extends Reflux.Component {
           onClearText={this.state.search}
           placeholder='Search Here...'>
         </SearchBar>
-        <ScrollView>
+        <ScrollView style={{marginTop: -21}}>
           <List>
             {bars.map((bar) => (
               <ListItem

@@ -52,8 +52,7 @@ export default class Me extends Reflux.Component {
     this.store = Store;
   }
   handleSettingsPress = () => {
-    //this.props.navigation.navigate('Settings');
-    Alert.alert("Settings works");
+    this.props.navigation.navigate('Settings');
   };
 
   render(){
@@ -66,6 +65,13 @@ export default class Me extends Reflux.Component {
             featured
             title={`${this.props.name.first.toUpperCase()} ${this.props.name.last.toUpperCase()}`}
             caption={this.props.email}
+            height={200}
+          />
+
+          <Button
+            title="Settings"
+            buttonStyle={{ marginTop: 20 }}
+            onPress={this.handleSettingsPress}
           />
 
           <List>
