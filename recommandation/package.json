@@ -24,8 +24,10 @@
   "homepage": "https://github.com/Darkdragon14/Night-advisor#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "likely": "^0.2.0",
     "nearest-neighbor": "0.0.3",
     "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.2"
   }
 }

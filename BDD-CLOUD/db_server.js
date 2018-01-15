@@ -1,7 +1,9 @@
 //Require
 var express = require('express');
+var http = require("http");
 var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
+var mysql = require("mysql");
 var port = 3000;
 var hostname = 'db_server';
 var app = express();
@@ -9,8 +11,13 @@ var myRouter = express.Router();
 
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
+//_______________________________________________________________________________________________
+//    MONGO DB (NO SQL)
+//_______________________________________________________________________________________________
 
 mongoose.connect('mongodb://mongo/nightadvisor') ;
 
@@ -51,7 +58,7 @@ var Recommandations = mongoose.model('Recommandations', recommandations);
 //Principale
 myRouter.route('/bdd_na')
 .all(function(req,res){
-      res.json({message : "Bienvenue sur la base de donnée de Night Advisor"});
+      res.json({message : "Bienvenue sur le serveur rattaché aux différentes bases de données de l'application Night Advisor"});
 });
 
 //Avis
@@ -89,7 +96,6 @@ myRouter.route('/avis/:avis_id')
 
 /*
 .put(function(req,res){
->>>>>>> c7866c56e00269c4be81d74a2ac12b231fdcc4ad
                 Avis.findById(req.params.avis_id, function(err, avis) {
                 if (err){
                     res.send(err);
@@ -198,7 +204,127 @@ myRouter.route('/sendRecommandations')
 });
 
 
+//_______________________________________________________________________________________________
+//    MYSQL 
+//_______________________________________________________________________________________________
 
+//Database connection
+
+/*var connection = mysql.createConnection({
+  host     : 'mysql', //mysql database host name
+  user     : 'user', //mysql database user name
+  password : 'password', //mysql database password
+  database : 'test' //mysql database name
+});
+
+connection.connect(function(err) {
+  if (err) throw err
+  console.log('Vous êtes maintenant connecté sur la BDD MySql NSOC')
+})*/
+
+app.get('/employees', function (req, res) {
+   connection.query('select * from employee', function (error, results, fields) {
+   if (error) throw error;
+   res.end(JSON.stringify(results));
+ });
+});
+
+
+app.put('/employees/:employee_name', function (req, res) {
+   connection.query('UPDATE `employee` SET `employee_salary`=?,`employee_age`=?,`id`=? where `employee_name`=?',[req.body.employee_salary, req.body.employee_age, req.body.id, req.params.employee_name], function (error, results, fields) {
+   if (error) throw error;
+   res.json({message : "Changement effectué"});
+ });
+});
+
+app.get('/login', function (req, res) {
+   connection.query('select * from login', function (error, results, fields) {
+   if (error) throw error;
+   res.end(JSON.stringify(results));
+ });
+});
+
+app.post('/login', function (req, res) {
+   var postData  = req.body;
+   connection.query('INSERT INTO login SET ?', postData, function (error, results, fields) {
+   if (error) throw error;
+   res.json({message : "Login effectué"});
+ });
+});
+
+app.post('/register', function (req, res) {
+   var postData  = req.body;
+   connection.query('INSERT INTO register SET ?', postData, function (error, results, fields) {
+   if (error) throw error;
+   res.json({message : "Enregistrement effectué"});
+ });
+});
+
+app.get('/userProfil', function (req, res) {
+   connection.query('select * from profilUser', function (error, results, fields) {
+   if (error) throw error;
+   res.end(JSON.stringify(results));
+ });
+});
+
+app.post('/userProfil', function (req, res) {
+   var postData  = req.body;
+   connection.query('INSERT INTO profilUser SET ?', postData, function (error, results, fields) {
+   if (error) throw error;
+   res.json({message : "Données enregistrées"});
+ });
+});
+
+app.put('/updateProfil', function (req, res) {
+   connection.query('UPDATE `profilUser` SET `nom`=?,`prenom`=?,`pseudo`=?,`email`=?,`dateNaissance`=?,`langue`=?,`adresse`=?,`codePostal`=?,`ville`=?,`styleMusique`=?,`prefAmbiance`=?,`prefFrequentation`=?,`prefTemperature`=?,`barPref1`=?,`barPref2`=?,`barPref3`=? where `id`=?', [req.body.nom,req.body.prenom, req.body.pseudo, req.body.email, req.body.dateNaissance,req.body.langue, req.body.adresse, req.body.codePostal, req.body.styleMusique, req.body.prefAmbiance, req.body.prefFrequentation, req.body.prefTemperature, req.body.prefBar1, req.body.prefBar2, req.body.prefBar3], function (error, results, fields) {
+   if (error) throw error;
+   res.end(JSON.stringify(results));
+ });
+});
+
+app.get('/userBar', function (req, res) {
+   connection.query('select * from profilUser', function (error, results, fields) {
+   if (error) throw error;
+   res.end(JSON.stringify(results));
+ });
+});
+
+app.post('/userBar', function (req, res) {
+   var postData  = req.body;
+   connection.query('INSERT INTO profilUser SET ?', postData, function (error, results, fields) {
+   if (error) throw error;
+   res.json({message : "Données enregistrées"});
+ });
+});
+
+app.put('/updateBar', function (req, res) {
+   connection.query('UPDATE `profilUser` SET `nom`=?,`prenom`=?,`pseudo`=?,`email`=?,`dateNaissance`=?,`langue`=?,`adresse`=?,`codePostal`=?,`ville`=?,`styleMusique`=?,`prefAmbiance`=?,`prefFrequentation`=?,`prefTemperature`=?,`barPref1`=?,`barPref2`=?,`barPref3`=? where `id`=?', [req.body.nom,req.body.prenom, req.body.pseudo, req.body.email, req.body.dateNaissance,req.body.langue, req.body.adresse, req.body.codePostal, req.body.styleMusique, req.body.prefAmbiance, req.body.prefFrequentation, req.body.prefTemperature, req.body.prefBar1, req.body.prefBar2, req.body.prefBar3], function (error, results, fields) {
+   if (error) throw error;
+   res.end(JSON.stringify(results));
+ });
+});
+
+
+/*myRouter.route('/employees')
+.get(function (req,res) {
+   connection.query('select * from employee', function (error, results, fields) {
+   if (error) throw error;
+   res.end(JSON.stringify(results));
+ });
+});
+.post(function (req, res) {
+     var postData  = req.body;
+     connection.query('INSERT INTO employee SET ?', postData, function (err, results, fields) {
+     if (err) throw err;
+     res.end(JSON.stringify(results));
+   });
+});*/
+
+
+
+//_______________________________________________________________________________________________
+//    Serveur express
+//_______________________________________________________________________________________________
 app.use(myRouter);
 app.listen(port, function(){
   console.log("Mon serveur fonctionne sur http://"+ hostname +":"+port);
