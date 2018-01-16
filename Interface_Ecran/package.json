@@ -1,0 +1,16 @@
+{
+  "name": "interface_ecran",
+  "version": "1.0.0",
+  "description": "",
+  "main": "serveur.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^11.5.1",
+    "requirejs": "^2.3.5",
+    "socket.io": "^2.0.4"
+  }
+}

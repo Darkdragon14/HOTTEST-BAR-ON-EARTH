@@ -14,14 +14,12 @@ var myRouter = express.Router();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-<<<<<<< HEAD
 
 //_______________________________________________________________________________________________
 //    MONGO DB (NO SQL)
 //_______________________________________________________________________________________________
 
-=======
->>>>>>> 3809a35f1393f9576e127c316369b0d46e15540c
+
 mongoose.connect('mongodb://mongo/nightadvisor') ;
 
 //Modèles Mongoose
@@ -214,9 +212,9 @@ myRouter.route('/sendRecommandations')
 //Database connection
 
 /*var connection = mysql.createConnection({
-  host     : 'localhost', //mysql database host name
-  user     : 'root', //mysql database user name
-  password : 'chantepie', //mysql database password
+  host     : 'mysql', //mysql database host name
+  user     : 'user', //mysql database user name
+  password : 'password', //mysql database password
   database : 'test' //mysql database name
 });
 
