@@ -18,7 +18,6 @@ var queryDb = function(json){
 //####  GET ####
 
 app.get('/getDashBoard/', function(req, res){
-  console.log(req)
   if(req.headers.cookie){
     redisClient.exists(req.headers.cookie, function(err, reply) {
         if (reply === 1) {
@@ -26,22 +25,10 @@ app.get('/getDashBoard/', function(req, res){
             res.send({token: true, cookie: req.headers.cookie})
         } else {
             console.log('User doesn\'t exist');
-            redisClient.get(req.headers.cookie, function(err, reply) {
-              console.log(reply);
-            });
-            redisClient.get("Fred", function(err, reply) {
-              console.log(reply);
-            });
             res.send("No no no !")
         }
     });
   }else {
-    redisClient.get(req.headers.cookie, function(err, reply) {
-      console.log(reply);
-    });
-    redisClient.get("Fred", function(err, reply) {
-      console.log(reply);
-    });
     res.send("No no no !")
   }
 })

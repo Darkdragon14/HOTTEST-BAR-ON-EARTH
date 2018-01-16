@@ -6,27 +6,51 @@ const server = require('http').createServer(app)
 var request = require("request");
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
+var redis = require('redis');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+var redisClient = redis.createClient('redis://redis:6379');
+var bodyParser = require('body-parser');
 
 var connected = []
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(session({
+    store: new RedisStore({host: 'redis', port:6379, client:redisClient}),
+    secret: 'nightAdvisor',
+    resave: false,
+    saveUninitialized: false
+}));
+
 app.use(passport.initialize());
+app.use(passport.session());
 
 passport.use(new LocalStrategy({
     usernameField: 'user_id',
-    passwordField: 'passwd'
+    passwordField: 'passwd',
+    passReqToCallback: true
   },
-  function(username, password, done) {
+  function(req, username, password, done) {
       console.log('Users: ' + username)
       console.log('Passwd: ' + password)
-      if (username != "Fred") {
-        return done(null, false, { message: 'Incorrect username.' });
+      if (username == "Fred" && password == "pwd" || username == "Ben" && password == "pswd") {
+        redisClient.set(req.headers.cookie, username, redis.print());
+        return done(null, username);
+      }else{
+        return done(null, false, { message: 'Incorrect user.' });
       }
-      if (password != "pwd") {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, username);
   }
 ));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(id, done) {
+  done(null, id);
+});
 
 app.get('/isConnected/', function(req, res){
   console.log('Users: ' + connected)
