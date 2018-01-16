@@ -39,29 +39,15 @@ app.get('/isConnected/', function(req, res){
   }*/
 })
 
-/**app.post('/login/', function(req, res){
-  connected.push(req.query.user_id)
-  console.log('Users: ' + connected)
-  console.log(req.query)
-  if(req.query.user_id == "Fred"){
-    res.status(200).send("Users : " + connected)
-  }else{
-    res.status(403).send("Users : " + connected)
-  }
-  passport.authenticate('local', { successRedirect: '/getDashBoard',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
-})*/
-
 app.get('/login', function(req, res){
-  res.send(form.html);
+  res.sendFile(__dirname + '/form.html');
 })
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/getDashBoard',
                                    failureRedirect: '/login',
-                                   session: false
-                                  })
+                                   session: true
+                                 })
 );
 
 app.get('/register/', function(req, res){
