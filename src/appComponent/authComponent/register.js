@@ -18,6 +18,8 @@ import {
   width      ,
   height     ,
   totalSize } from 'react-native-dimension';
+//import pinch from 'react-native-pinch';
+//import configureTrustKit from 'react-native-trustkit-wrapper';
 
 /* ====================================================
      JSX FILE
@@ -29,7 +31,29 @@ import Store   from './../../store.js';
 /* ====================================================
      FUNCTION
      ====================================================== */
-
+/*configureTrustKit({
+ PinnedDomain: {
+   '172.20.10.3': {
+     IncludeSubdomains: true,
+     EnforcePinning: true,
+     PublicKeyAlgorithms: [
+       'AlgorithmRsa2048',
+     ],
+     PublicKeyHashes: [
+       'HXXQgxueCIU5TTLHob/bPbwcKOKw6DkfsTWYHbxbqTY=',
+       '0SDf3cRToyZJaMsoS17oF72VMavLxj/N7WBNasNuiR8=',
+     ],
+     ReportUris: [
+       'https://172.20.10.3/log_report',
+     ],
+   },
+ },
+ SwizzleNetworkDelegates: true,
+}).catch((err) => {
+ if (err.code === 'trustkit_initialized') {
+   console.warn('Trust kit configuration only changed when app re-launches');
+ }
+});*/
 
 /* ====================================================
       CODE
@@ -45,16 +69,29 @@ export default class Register extends Component {
 
   // fonction pour récupérer avec GET {"token" : true}.... Doit faire un post par la suite
   getRegister(){
-    return fetch('http://192.168.1.67/register')
+    /* FONCTIONNE AVEC LE SERVEUR DE ACHILLE */
+    return fetch('https://192.168.43.193/register')
       .then(response => response.json())
       .then(responseJson => {
         Alert.alert('La réponse : ' + responseJson.token);
         Actions.register(responseJson.token);
         // return responseJson.token;
       })
-      .catch(error => {
-        console.error(error);
-      });
+      .catch(error => {console.error(error);});
+    /*
+    pinch.fetch('https://172.20.10.3/register', {
+      timeoutInterval: 10000, // timeout after 10 seconds
+      sslPinning: {
+        cert: 'NightAdvisor', // cert file name without the `.cer`
+      }
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      Alert.alert('La réponse : ' + responseJson.token);
+      Actions.register(responseJson.token);
+    })
+    .catch(error => {console.error(error);});
+    */
   }
 
 

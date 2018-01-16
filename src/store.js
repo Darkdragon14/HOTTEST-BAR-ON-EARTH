@@ -12,8 +12,8 @@ export default class Store extends Reflux.Store{
       checkPage: true, // true : page de login, false : page d'enregistrement
 
       // Login and Register page
-      pseudo: '',
-      password: '',
+      pseudo: 'Ben',
+      password: 'pswd',
       stayConnected: false,
 
       confirmPassword: '',
@@ -61,9 +61,9 @@ export default class Store extends Reflux.Store{
 /* ====================================================
     FUNCTION WITH ACTIONS.JS
     ====================================================== */
-  onLogin(){
+  onLogin(rep){
     this.setState({
-      check: true,
+      check: rep,
     })
   }
 

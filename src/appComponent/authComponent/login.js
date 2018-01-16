@@ -50,7 +50,24 @@ export default class Login extends Reflux.Component {
       .then(response => rep = response.token);   // Successfully logged in
     console.log(rep);
     Actions.login(rep)*/
-    Actions.login(); // change seulement la valeur check à true
+    return fetch('https://192.168.43.193/login/?user_id=Ben&passwd=pswd', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: {
+        user_id: 'Ben',
+        passwd: 'pswd',
+      },
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      Alert.alert('Réponse : ' + responseJson.token + ' \n Cookie : ' + responseJson.cookie);
+      Actions.login(responseJson.token);
+    })
+    .catch(error => {console.error(error);});
+     // change seulement la valeur check à true
   }
 
 
@@ -64,11 +81,11 @@ export default class Login extends Reflux.Component {
           <TextInput
             style={styles.input}
             placeholder="Pseudo"
-            onChangeText={(text) => this.setState({text})}/>
+            onChangeText={(text) => this.setState({pseudo: text})}/>
           <TextInput
             style={styles.input}
             placeholder="Password"
-            onChangeText={(text) => this.setState({text})}
+            onChangeText={(text) => this.setState({password: text})}
             secureTextEntry={true}/>
           <CheckBox
             label='Rester Connecté'
