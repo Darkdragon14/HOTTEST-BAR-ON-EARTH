@@ -63,6 +63,10 @@ app.get('/isConnected/', function(req, res){
   }*/
 })
 
+app.get('/login', function(req, res){
+  res.json({token : false});
+})
+
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/getDashBoard',
                                    failureRedirect: '/login',
