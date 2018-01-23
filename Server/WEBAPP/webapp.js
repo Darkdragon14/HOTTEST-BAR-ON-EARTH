@@ -33,7 +33,7 @@ app.get('/getDashBoard/', function(req, res){
   }
 })
 
-app.get('/temperature', function(req, res){
+app.get('/temperature/', function(req, res){
   res.send({temp: 20})
 })
 
