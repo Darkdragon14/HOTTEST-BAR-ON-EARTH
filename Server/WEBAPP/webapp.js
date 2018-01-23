@@ -33,6 +33,10 @@ app.get('/getDashBoard/', function(req, res){
   }
 })
 
+app.get('/temperature', function(req, res){
+  res.send({temp: 20})
+})
+
 app.listen(port, function(){
   console.log('listening on : ' + port)
 })
