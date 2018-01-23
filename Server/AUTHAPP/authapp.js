@@ -63,10 +63,6 @@ app.get('/isConnected/', function(req, res){
   }*/
 })
 
-app.get('/login', function(req, res){
-  res.sendFile(__dirname + '/form.html');
-})
-
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/getDashBoard',
                                    failureRedirect: '/login',
