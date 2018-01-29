@@ -2,11 +2,10 @@
       REACT
       ====================================================== */
 import React, { Component } from 'react';
-import Reflux   from 'reflux';
-import CheckBox from 'react-native-checkbox';
-//import { CheckBox } from 'react-native-elements';
+import Reflux               from 'reflux';
+import CheckBox             from 'react-native-checkbox';
 import {
-  Alert      ,
+  AlertIOS   ,
   Platform   ,
   StyleSheet ,
   Text       ,
@@ -14,23 +13,17 @@ import {
   AppRegistry,
   Image      ,
   TextInput  ,
-  Button } from 'react-native';
+  Button     ,} from 'react-native';
 import {
   width      ,
   height     ,
-  totalSize } from 'react-native-dimension';
+  totalSize  ,} from 'react-native-dimension';
 
 /* ====================================================
      JSX FILE
      ====================================================== */
-import Rest    from './../../rest.js';
 import Actions from './../../actions.js';
 import Store   from './../../store.js';
-
-/* ====================================================
-     FUNCTION
-     ====================================================== */
-
 
 /* ====================================================
      CODE
@@ -44,30 +37,31 @@ export default class Login extends Reflux.Component {
   };
 
   postLogin(){
-    /*const api = new Rest();
-    var rep;
-    api.login(this.state.pseudo, this.state.password, this.state.stayConnected)
-      .then(response => rep = response.token);   // Successfully logged in
-    console.log(rep);
-    Actions.login(rep)*/
-    return fetch('https://192.168.43.193/login/?user_id=Ben&passwd=pswd', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: {
-        user_id: 'Ben',
-        passwd: 'pswd',
-      },
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      Alert.alert('Réponse : ' + responseJson.token + ' \n Cookie : ' + responseJson.cookie);
-      Actions.login(responseJson.token);
-    })
-    .catch(error => {console.error(error);});
-     // change seulement la valeur check à true
+    //  À garder
+    // return fetch('https://localhost/login/?user_id=' + this.state.pseudo +
+        // '&passwd=' + this.state.password, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    //
+    // .then(response => response.json())
+    // .then(responseJson => {
+    //   var cook = responseJson.cookie.substring(12);
+/*
+      AlertIOS.alert('Réponse : ' + responseJson.token +
+        '\n Cookie : ' + cook +
+        '\n id: ' + this.state.pseudo +
+        '\n password: ' + this.state.password +
+        '\n stayConnected: ' + this.state.stayConnected
+      );
+*/
+      // Actions.login(responseJson.token, cook);
+      Actions.login(); // change seulement la valeur check à true
+    // })
+    // .catch(error => {console.error(error);});
   }
 
 

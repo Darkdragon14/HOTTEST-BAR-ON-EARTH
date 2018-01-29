@@ -2,8 +2,8 @@
       REACT
       ====================================================== */
 import React, { Component } from 'react';
-import Reflux   from 'reflux';
-import CheckBox from 'react-native-checkbox';
+import Reflux               from 'reflux';
+import CheckBox             from 'react-native-checkbox';
 import {
   Alert      ,
   Platform   ,
@@ -24,7 +24,6 @@ import {
 /* ====================================================
      JSX FILE
      ====================================================== */
-import Rest    from './../../rest.js';
 import Actions from './../../actions.js';
 import Store   from './../../store.js';
 
@@ -63,37 +62,73 @@ export default class Register extends Component {
     super(props);
     this.store = Store;
 
-    this.getRegister = this.getRegister.bind(this);
+    //this.getRegister = this.getRegister.bind(this);
   };
 
 
   // fonction pour récupérer avec GET {"token" : true}.... Doit faire un post par la suite
-  getRegister(){
-    /* FONCTIONNE AVEC LE SERVEUR DE ACHILLE */
-    return fetch('https://192.168.43.193/register')
+  // getRegister(){
+  //   /* FONCTIONNE AVEC LE SERVEUR DE ACHILLE */
+  //   return fetch('https://localhost/register')
+  //     .then(response => response.json())
+  //     .then(responseJson => {
+  //       //Alert.alert('La réponse : ' + responseJson.token);
+  //       Actions.register(responseJson.token);
+  //       // return responseJson.token;
+  //     })
+  //     .catch(error => {console.error(error);});
+  //   /*
+  //   pinch.fetch('https://172.20.10.3/register', {
+  //     timeoutInterval: 10000, // timeout after 10 seconds
+  //     sslPinning: {
+  //       cert: 'NightAdvisor', // cert file name without the `.cer`
+  //     }
+  //   })
+  //   .then(response => response.json())
+  //   .then(responseJson => {
+  //     Alert.alert('La réponse : ' + responseJson.token);
+  //     Actions.register(responseJson.token);
+  //   })
+  //   .catch(error => {console.error(error);});
+  //   */
+  // }
+
+  postRegister(){
+    if(this.state.pro){
+      return fetch('https://localhost/register/?user_id=' + this.state.pseudo +
+          '&passwd=' + this.state.password +
+          '&email' + this.state.email +
+          '&pro' + this.state.pro, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
       .then(response => response.json())
       .then(responseJson => {
-        Alert.alert('La réponse : ' + responseJson.token);
-        Actions.register(responseJson.token);
-        // return responseJson.token;
+        /* récupérer les variables qui seront enregistré dans le JSON */
+        //this.setState({temperature: responseJson.temperature})
       })
       .catch(error => {console.error(error);});
-    /*
-    pinch.fetch('https://172.20.10.3/register', {
-      timeoutInterval: 10000, // timeout after 10 seconds
-      sslPinning: {
-        cert: 'NightAdvisor', // cert file name without the `.cer`
-      }
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      Alert.alert('La réponse : ' + responseJson.token);
-      Actions.register(responseJson.token);
-    })
-    .catch(error => {console.error(error);});
-    */
+    } else{
+      return fetch('https://localhost/register/?user_id=' + this.state.pseudo +
+          '&passwd=' + this.state.password +
+          '&email' + this.state.email, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => response.json())
+      .then(responseJson => {
+        /* récupérer les variables qui seront enregistré dans le JSON */
+        //this.setState({temperature: responseJson.temperature})
+      })
+      .catch(error => {console.error(error);});
+    }
   }
-
 
   render(){
     return(
@@ -137,7 +172,7 @@ export default class Register extends Component {
           />
           <View style={styles.myButton}>
             <Button
-              onPress={this.getRegister}
+              onPress={this.postRegister}
               title="S'enregistrer"/>
           </View>
         </View>

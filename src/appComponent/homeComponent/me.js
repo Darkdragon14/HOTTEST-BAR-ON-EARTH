@@ -2,7 +2,7 @@
       REACT
       ====================================================== */
 import React, { Component } from 'react';
-import Reflux from 'reflux';
+import Reflux               from 'reflux';
 import {
   Alert      ,
   Platform   ,
@@ -26,17 +26,15 @@ import {
   FormInput  ,
   Button     ,
   FormValidationMessage } from 'react-native-elements';
-import DatePicker from 'react-native-datepicker'
+import DatePicker   from 'react-native-datepicker'
 import SimplePicker from 'react-native-simple-picker';
 
 /* ====================================================
      JSX FILE
      ====================================================== */
 import Store   from './../../store.js';
-import Rest    from './../../rest.js';
 import Actions from './../../actions.js';
-
-import { me } from './meComponent/data.js'
+import { me }  from './meComponent/data.js'
 
 /* ====================================================
       FUNCTION
@@ -51,12 +49,52 @@ export default class Me extends Reflux.Component {
     super(props);
     this.store = Store;
   }
+
+  // componentDidMount() {
+  //   return fetch('https://localhost/userProfile/?cookie=' + this.state.cookie)
+  //     .then(response => response.json())
+  //     .then(responseJson => {
+  //       /* récupérer les variables qui seront enregistré dans le JSON */
+  //       //this.setState({temperature: responseJson.temperature})
+  //     })
+  //     .catch(error => {console.error(error);});
+  // }
+
   handleSettingsPress = () => {
     this.props.navigation.navigate('Settings');
   };
 
+  updateProfile(){
+    return fetch('https://localhost/updateProfile/?cookie=' + this.state.cookie +
+        '&nom=' + this.state.nom +
+        '&prenom' + this.state.prenom +
+        '&datenaissance' + this.state.birthdate +
+        '&adresse' + this.state.street +
+        '&postcode' + this.state.postcode +
+        '&city' + this.state.city +
+        '&language' + this.state.language, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+/*
+      AlertIOS.alert('Réponse : ' + responseJson.token +
+        '\n Cookie : ' + cook +
+        '\n id: ' + this.state.pseudo +
+        '\n password: ' + this.state.password +
+        '\n stayConnected: ' + this.state.stayConnected
+      );
+*/
+      Actions.updateMe(responseJson.token);
+    })
+    .catch(error => {console.error(error);});
+  }
+
   render(){
-    //this.handleTemperature();
     return(
       <View style={styles.accueil}>
         <ScrollView>
@@ -156,7 +194,7 @@ export default class Me extends Reflux.Component {
             large
             icon={{name: 'cached'}}
             title='METTRE À JOUR'
-            onPress={Actions.updateMe}
+            onPress={this.updateProfile}
             buttonStyle={styles.updateButton}>
           </Button>
         </ScrollView>

@@ -2,7 +2,7 @@
       REACT
       ====================================================== */
 import React, { Component } from 'react';
-import Reflux from 'reflux';
+import Reflux               from 'reflux';
 import {
   Alert      ,
   Platform   ,
@@ -22,23 +22,29 @@ import {
      JSX FILE
      ====================================================== */
 import Store from './../../store.js';
-import Rest  from './../../rest.js';
-
-/* ====================================================
-      FUNCTION
-      ====================================================== */
-
 
 /* ====================================================
       CODE
       ====================================================== */
 export default class Historique extends Reflux.Component {
+  constructor(props){
+      super(props);
+      this.store = Store;
+  }
+
+  componentDidMount() {
+    window.setInterval(function() {
+      this.setState({temperature: this.state.temperature + 1})
+    }.bind(this),60000);
+  }
+
   render(){
     //this.handleTemperature();
     return(
       <View style={styles.accueil}>
         <View>
           <Text>Je suis dans l'historique</Text>
+          <Text>{this.state.temperature}</Text>
         </View>
       </View>
     );

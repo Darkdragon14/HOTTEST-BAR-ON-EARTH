@@ -4,7 +4,7 @@ var Actions = Reflux.createActions([
   'login',
   'register',
   'updateMe',
-  //'getTemperature'
+  'getTemperature',
 ])
 
 module.exports = Actions;

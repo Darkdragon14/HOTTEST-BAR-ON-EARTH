@@ -12,11 +12,14 @@ import Accueil    from './../appComponent/homeComponent/accueil.js';
 import Liste      from './../appComponent/homeComponent/liste.js';
 import Historique from './../appComponent/homeComponent/historique.js';
 import Me         from './../appComponent/homeComponent/me.js';
+import Bar        from './../appComponent/homeComponent/barInfo.js'
 import Settings   from './../appComponent/homeComponent/meComponent/settings.js';
 import BarDetail  from './../appComponent/homeComponent/listeComponent/bar.js';
 import Evenement from './../appComponent/homeComponent/listeComponent/barComponent/evenement.js';
 import Avis from './../appComponent/homeComponent/listeComponent/barComponent/evenement.js';
 import Soirees from './../appComponent/homeComponent/listeComponent/barComponent/soirees.js';
+
+import Store from './../store.js';
 
 /* ====================================================
       CODE
@@ -129,6 +132,25 @@ export const MeStack = StackNavigator({
   }
 })
 
+export const BarStack = StackNavigator({
+  Bar: {
+    screen: Bar,
+    navigationOptions: {
+      title: 'Night Advisor',
+      headerStyle: {
+        backgroundColor: 'midnightblue',
+      },
+      headerTitleStyle: {
+        color: 'white',
+      },
+      headerBackTitleStyle: {
+        color: 'blue',
+      },
+      headerTintColor: 'white',
+    }
+  }
+})
+
 export const Tabs = TabNavigator({
   Accueil: {
     screen: AccueilStack,
@@ -156,6 +178,13 @@ export const Tabs = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Me',
       tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
+    },
+  },
+  Bar: {
+    screen: BarStack,
+    navigationOptions: {
+      tabBarLabel: 'Bar',
+      tabBarIcon: ({ tintColor }) => <Icon name="location-city" size={35} color={tintColor} />
     },
   },
 });

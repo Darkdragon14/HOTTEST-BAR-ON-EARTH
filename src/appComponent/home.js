@@ -24,7 +24,6 @@ import { Header } from 'react-native-elements';
      JSX FILE
      ====================================================== */
 import Store from './../store.js';
-import Rest  from './../rest.js';
 
 import { Tabs, Root } from './../config/router.js'
 

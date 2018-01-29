@@ -18,9 +18,14 @@ import {
   height     ,
   totalSize } from 'react-native-dimension';
 
-  /* ====================================================
-        FUNCTION
-        ====================================================== */
+/* ====================================================
+     JSX FILE
+     ====================================================== */
+import Store from './../../../store.js';
+
+/* ====================================================
+      FUNCTION
+      ====================================================== */
 function Greeting(props){
   const checkWifi         = props.checkWifi;
   const checkAccesibilite = props.checkAccesibilite;
@@ -82,7 +87,15 @@ function Greeting(props){
     )
   }
 }
+
+/* ====================================================
+      CODE
+      ====================================================== */
 export default class Bar extends Component {
+  constructor(props){
+    super(props);
+    this.store = Store;
+  }
   onEvenement = (bar) => {
     this.props.navigation.navigate('Evenement', {...bar});
   }
@@ -128,7 +141,7 @@ export default class Bar extends Component {
             <View style={{flex:2, marginLeft: 5}}>
               <Text>Ambiance : {ambiance}</Text>
               <Text>Fréquentation : {frequentation}</Text>
-              <Text>Température : {temperature}</Text>
+              <Text>Température : {this.state.temperature}</Text>
             </View>
             <View style={{flex:1, marginLeft: 5, justifyContent:'center'}}>
               <Text>Adresse : </Text>

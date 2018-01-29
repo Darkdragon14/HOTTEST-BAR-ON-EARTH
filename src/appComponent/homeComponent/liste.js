@@ -2,7 +2,7 @@
       REACT
       ====================================================== */
 import React, { Component } from 'react';
-import Reflux from 'reflux';
+import Reflux               from 'reflux';
 import {
   Alert      ,
   Platform   ,
@@ -27,15 +27,8 @@ import SimplePicker from 'react-native-simple-picker';
 /* ====================================================
      JSX FILE
      ====================================================== */
-import Store from './../../store.js';
-import Rest  from './../../rest.js';
-
+import Store    from './../../store.js';
 import { bars } from './listeComponent/dataBar.js';
-
-/* ====================================================
-      FUNCTION
-      ====================================================== */
-
 
 /* ====================================================
       CODE
@@ -46,12 +39,29 @@ export default class Liste extends Reflux.Component {
     this.store = Store;
   }
 
+  // componentDidMount() {
+  //   return fetch('https://localhost/getBarList/')
+  //     .then(response => response.json())
+  //     .then(responseJson => {
+  //       /* récupérer les variables qui seront enregistré dans le JSON */
+  //       //this.setState({temperature: responseJson.temperature})
+  //     })
+  //     .catch(error => {console.error(error);});
+  // }
+
   onLearnMore = (bar) => {
     this.props.navigation.navigate('Details', { ...bar });
+    // return fetch('https://localhost/temperature')
+    //   .then(response => response.json())
+    //   .then(responseJson => {
+    //     Alert.alert('La réponse : ' + responseJson.temperature);
+    //     Actions.getTemperature(responseJson.temperature);
+    //     // return responseJson.token;
+    //   })
+    //   .catch(error => {console.error(error);});
   };
 
   render(){
-    //this.handleTemperature();
     return(
       <View style={styles.accueil}>
         <SearchBar

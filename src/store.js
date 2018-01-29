@@ -1,7 +1,6 @@
-import Reflux from 'reflux';
-
+import Reflux  from 'reflux';
 import Actions from './actions.js';
-import { me } from './appComponent/homeComponent/meComponent/data.js'
+import { me }  from './appComponent/homeComponent/meComponent/data.js'
 
 
 export default class Store extends Reflux.Store{
@@ -11,33 +10,40 @@ export default class Store extends Reflux.Store{
       check: false, // true : page home, false : page d'authentification
       checkPage: true, // true : page de login, false : page d'enregistrement
 
-      // Login and Register page
-      pseudo: 'Ben',
-      password: 'pswd',
+      // User
+      pseudo: '',
+      password: '',
       stayConnected: false,
+      cookie: '',
 
       confirmPassword: '',
       email: '',
       confirmEmail: '',
-      pro: '',
+      pro: false,
 
-      // Accueil page
-      temperature: 1,
-      compteur: 0,
-      abc: '',
-
-      // Me page
       nom: 'Yvert',
       prenom: '',
       birthdate: '',
       street: '',
-      city: '',
       postcode: '',
+      city: '',
       language: 'Français',
+
+      // Bar information
+      identification: '',
+      name: 'Le mystère',
+      addr: 'New York',
+      horaire: 'lun-sam : 14h-3h',
+      frequentation: '1000',
+      description: 'Vous voulez savoir pourquoi le mystère ? C\'est ça le mystère ;)',
+      evenement: '-50% sur les mojitos',
+
+      temperature: '1',
+      compteur: '0',
+      sonorité: '',
 
       // liste page
       search: '',
-
 
       // variable test
       check: false,
@@ -47,6 +53,10 @@ export default class Store extends Reflux.Store{
       checkRap: false,
       checkHipHop: false,
       checkRaeggae: false,
+      checkCalme: false,
+      checkDanse: false,
+      checkSport: false,
+      checkGaming: false,
     }
 
     // Very important to use the files actions.js
@@ -61,9 +71,11 @@ export default class Store extends Reflux.Store{
 /* ====================================================
     FUNCTION WITH ACTIONS.JS
     ====================================================== */
-  onLogin(rep){
+  onLogin(rep, cook){
     this.setState({
-      check: rep,
+      //check: rep,
+      //cookie: cook,
+      check: true,
     })
   }
 
@@ -79,9 +91,9 @@ export default class Store extends Reflux.Store{
     })
   }
 
-  /*onGetTemperature(rep){
+  onGetTemperature(rep){
     this.setState({
       temperature: rep,
     })
-  }*/
+  }
 }
