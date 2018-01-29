@@ -29,13 +29,6 @@ services:
     depends_on:
       - redis
 
-  socketbar:
-    build: ./Server/SOCKETBAR
-    ports:
-      - "8082"
-    networks:
-      - overlay
-
   socketclient:
     build: ./Server/SOCKETCLIENT
     ports:
@@ -44,7 +37,7 @@ services:
       - overlay
 
   db_server:
-    build: ./BDD-CLOUD
+    build: ./BDD-CLOUD/db_server
     ports:
       - "3000"
     depends_on:
