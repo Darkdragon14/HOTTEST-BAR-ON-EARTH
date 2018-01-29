@@ -1,5 +1,5 @@
 var mongo = require('mongodb');
-var sensor = require('node-dht-sensor');
+//var sensor = require('node-dht-sensor');
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
@@ -67,7 +67,6 @@ function writePersonneFct (nbPersonneBar){
 exports.writePersonne=writePersonneFct;
 
 var getDataFct = function getData (collection,callback){
-console.log("test ok");
  return new Promise(function(resolve, reject) {
     var result = db.collection(collection).find().toArray();
     if (result) {

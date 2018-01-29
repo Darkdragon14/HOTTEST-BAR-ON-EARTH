@@ -5,7 +5,11 @@
   "main": "data_daemon.js",
   "dependencies": {
     "express": "4.16.2",
-    "mongodb": "2.2.33"
+    "mongodb": "2.2.33",
+    "express-session": "1.15.6",
+    "connect-redis": "3.3.3",
+    "redis": "2.8.0",
+    "body-parser": "^1.13.0"
   },
   "author": "achille penet"
 }
