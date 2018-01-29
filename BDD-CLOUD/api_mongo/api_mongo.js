@@ -221,6 +221,21 @@ myRouter.route('/dataBar')
         res.json(dataBar);
     });
 })
+.post(function(req,res){
+      var dataBar = new DataBar();
+      dataBar.IDBar = req.body.IDBar;
+      dataBar.temperature = req.body.temperature;
+      dataBar.bar = req.body.bar;
+      dataBar.musique = req.body.musique;
+      dataBar.occupation = req.body.occupation;
+      dataBar.date = req.body.date;
+      dataBar.save(function(err){
+        if(err){
+          res.send(err);
+        }
+        res.json({message : "Données enregistrées"});
+      });
+});
 
 
 
