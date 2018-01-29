@@ -35,12 +35,20 @@ passport.use(new LocalStrategy({
   function(req, username, password, done) {
       console.log('Users: ' + username)
       console.log('Passwd: ' + password)
-      if (username == "Fred" && password == "pwd" || username == "Ben" && password == "pswd") {
-        redisClient.set(req.headers.cookie, username, redis.print());
-        return done(null, username);
-      }else{
-        return done(null, false, { message: 'Incorrect user.' });
-      }
+      redisClient.exists(req.headers.cookie, function(err, reply) {
+          if (reply === 1) {
+              console.log('User exists');
+              return done(null, username);
+          } else {
+              console.log('User doesn\'t exist');
+              if (username == "Fred" && password == "pwd" || username == "Ben" && password == "pswd") {
+                redisClient.set(req.headers.cookie, username, redis.print());
+                return done(null, username);
+              }else{
+                return done(null, false, { message: 'Incorrect user.' });
+              }
+          }
+      })
   }
 ));
 
@@ -52,40 +60,32 @@ passport.deserializeUser(function(id, done) {
   done(null, id);
 });
 
-app.get('/isConnected/', function(req, res){
-  console.log('Users: ' + connected)
-  res.send("isConnected: true")
-  /**for(var i = 0; i<connected.length; i++){
-    console.log('User: ' + connected[i])
-    if(connected[i] == req.query.user_id){
-      res.send("isConnected: true")
-    }
-  }*/
-})
+app.post('/login/',
+  passport.authenticate('local'),
+  function(req, res){
+    res.send({token: true, cookie: req.headers.cookie})
+});
 
-app.get('/login', function(req, res){
-  res.json({token : false});
-})
+app.post('/logout/',
+  function(req, res){
+    redisClient.exists(req.headers.cookie, function(err, reply) {
+        if (reply === 1) {
+            console.log('User exists');
+            redisClient.del(req.headers.cookie);
+            res.send({token: true})
+        } else {
+            console.log('User not connected');
+            res.send({token: false})
+        }
+    })
+});
 
-app.post('/login',
+app.get('/register/',
   passport.authenticate('local', { successRedirect: '/getDashBoard',
-                                   failureRedirect: '/login',
+                                   failureRedirect: '/register',
                                    session: true
                                  })
-);
-
-app.get('/register/', function(req, res){
-  // Appel reco
-  var options = { method: 'GET',
-  url: 'http://reco:8000/newClient/Bob&pop&biere&10&20'};
-
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-
-    console.log(body);
-  });
-  res.json({token : true})
-})
+)
 
 app.listen(port, function(){
   console.log('listening on : ' + port)

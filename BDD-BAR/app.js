@@ -60,7 +60,6 @@ function writePersonneFct (nbPersonneBar){
     if (err) throw err;
     console.log("1 document inserted" + res);
 
-    db.close();
   }); 
 
 }
