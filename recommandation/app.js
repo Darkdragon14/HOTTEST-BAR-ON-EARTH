@@ -9,34 +9,35 @@ const nn = require('nearest-neighbor');
 const request = require('request');
 
 //adresse à modifier si nécessaire 
-const host = 'localhost';
-const port = 3000;
+const host = '148.60.36.28';
+const portNoSQL = 3000;
+const portSQL = 3030;
 
 //les différentes requêtes
 const dataLive = {
   hostname: host,
-  port: port,
+  port: portNoSQL,
   path: '/getDataLive',
   method: 'GET',
 };
 
 const recupAvis = {
 	hostname: host,
-	port: port,
-	path: '/allView',
+	port: portNoSQL,
+	path: '/avis',
 	method: 'GET',
 }
 
 const recupUsers = {
 	hostname: host,
-	port: port,
-	path: '/allUser',
+	port: portSQL,
+	path: '/userProfil',
 	method: 'GET',
 }
 
 const recupDonneeBar = {
 	hostname: host,
-	port: port,
+	port: portNoSQL,
 	path: '/dataBar',
 	method: 'GET',
 }
