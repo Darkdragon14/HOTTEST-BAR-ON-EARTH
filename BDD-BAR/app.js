@@ -52,7 +52,7 @@ function writeSoundFct(niveauDbBar){
 
 exports.writeSound=writeSoundFct;
 
-function writePersonne (nbPersonneBar){
+function writePersonneFct (nbPersonneBar){
 
   var myobj = { nbPersonne: nbPersonneBar, date: new Date() };
 
@@ -60,7 +60,6 @@ function writePersonne (nbPersonneBar){
     if (err) throw err;
     console.log("1 document inserted" + res);
 
-    db.close();
   }); 
 
 }
