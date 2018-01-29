@@ -68,5 +68,5 @@ setInterval(function () {
   trigger2.trigger(10,1);
 }, 1000);
 
-setInterval(writePersonDB, 1000);
+setInterval(writePersonDB, 1000 *60);
 
