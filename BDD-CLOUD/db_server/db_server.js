@@ -41,6 +41,15 @@ var dataLive = mongoose.Schema({
     occupation: Number
 });
 
+var dataBar = mongoose.Schema({
+    IDBar: String,
+    temperature: Number,
+    bar: String,
+    musique: String,
+    occupation: Number,
+    date: String
+});
+
 var recommandations = mongoose.Schema({
     IDUser: String,
     IDBar: String,
@@ -51,6 +60,7 @@ var Avis = mongoose.model('Avis', avisUsers);
 var Temperature = mongoose.model('Temperature', temperature);
 var DataLive = mongoose.model('DataLive', dataLive);
 var Recommandations = mongoose.model('Recommandations', recommandations);
+var DataBar = mongoose.model('DataBar', dataBar);
 
 
 //ROUTES
@@ -202,6 +212,17 @@ myRouter.route('/sendRecommandations')
         res.json({message : "Recommandation enregistrée"});
       });
 });
+
+
+myRouter.route('/dataBar')
+.get(function(req,res){
+  DataBar.find(function(err, dataBar){
+        if (err){
+            res.send(err);
+        }
+        res.json(recommandations);
+    });
+})
 
 
 //_______________________________________________________________________________________________
