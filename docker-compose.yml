@@ -9,7 +9,8 @@ services:
     networks:
       - overlay
     depends_on:
-      - db_server
+      - api_mongo
+      - api_mysql
 
   authapp:
     build: ./Server/AUTHAPP
