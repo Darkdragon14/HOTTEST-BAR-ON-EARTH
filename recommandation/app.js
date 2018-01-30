@@ -9,7 +9,7 @@ const nn = require('nearest-neighbor');
 const request = require('request');
 
 //adresse à modifier si nécessaire 
-const host = '148.60.36.28';
+const host = 'localhost';
 const portNoSQL = 3000;
 const portSQL = 3030;
 
@@ -63,7 +63,7 @@ app.get('/newClient/:IDUser&:musique&:bar&:occupation&:temperature', function(re
 		    nn.findMostSimilar(query, items, fields, function(nearestNeighbor, probability) {
 			  	var options = { 
 			  		method: 'POST',
-				  	url: "http://"+host+":"+port+"/sendRecommandations",
+				  	url: "http://"+host+":"+portNoSQL+"/sendRecommandations",
 				  	headers: {'Content-Type': 'application/json'},
 				  	body: { IDUser: query.IDUser, IDBar: nearestNeighbor.IDBar, Probability: probability },
 				  	json: true 
@@ -132,7 +132,7 @@ function CalculRecommendation(){
 						probability = probability * (bar.note * 0.2);
 						var options = { 
 					  		method: 'POST',
-						  	url: "http://"+host+":"+port+"/sendRecommandations",
+						  	url: "http://"+host+":"+portNoSQL+"/sendRecommandations",
 						  	headers: {'Content-Type': 'application/json'},
 						  	body: { IDUser: query.IDUser, IDBar: bar.IDBar, Probability: probability },
 						  	json: true 
@@ -218,7 +218,7 @@ function CalculRecommendationV2(){
 										probability = probability * (nearestNeighbor.note * 0.2);
 										var options = { 
 									  		method: 'POST',
-										  	url: "http://"+host+":"+port+"/sendRecommandations",
+										  	url: "http://"+host+":"+portNoSQL+"/sendRecommandations",
 										  	headers: {'Content-Type': 'application/json'},
 										  	body: { IDUser: query.IDUser, IDBar: nearestNeighbor.IDBar, Probability: probability },
 										  	json: true 
