@@ -1,19 +1,16 @@
 var bdd_bar=require("../BDD-BAR/app.js");
-
 var Gpio = require('pigpio').Gpio,
   trigger1 = new Gpio(23, {mode: Gpio.OUTPUT}),
   echo1 = new Gpio(24, {mode: Gpio.INPUT, alert: true});
   trigger2 = new Gpio(17, {mode: Gpio.OUTPUT}),
   echo2 = new Gpio(27, {mode: Gpio.INPUT, alert: true});
 
-// The number of microseconds it takes sound to travel 1cm at 20 degrees celcius
-var MICROSECDONDS_PER_CM = 1e6/34321;
 var distance1;
 var distance2;
 var numberOfPerson = 0;
 
-trigger1.digitalWrite(0); // Make sure trigger is low
-trigger2.digitalWrite(0);
+trigger1.digitalWrite(0); // s'assurer que le trigger1 est à 0 V
+trigger2.digitalWrite(0); // s'assurer que le trigger2 est à 0 V
 
 setTimeout(function(){writePersonDB();}, 2000);
 
@@ -28,8 +25,8 @@ setTimeout(function(){writePersonDB();}, 2000);
       startTick1 = tick;
     } else {
       endTick1 = tick;
-      diff1 = (endTick1 >> 0) - (startTick1 >> 0); // Unsigned 32 bit arithmetic
-      distance1 = diff1 / 2 / MICROSECDONDS_PER_CM;
+      diff1 = (endTick1 >> 0) - (startTick1 >> 0); 
+      distance1 = diff1 / 58;
       console.log("distance1 vaut = " + distance1 + "cm");
       if(distance1 < 80){
 		  numberOfPerson++;
@@ -45,8 +42,8 @@ setTimeout(function(){writePersonDB();}, 2000);
       startTick2 = tick;
     } else {
       endTick2 = tick;
-      diff2 = (endTick2 >> 0) - (startTick2 >> 0); // Unsigned 32 bit arithmetic
-      distance2 = diff2 / 2 / MICROSECDONDS_PER_CM;
+      diff2 = (endTick2 >> 0) - (startTick2 >> 0);
+      distance2 = diff2 / 58;
       console.log("distance2 vaut = " + distance1 + "cm");
       if(distance2 < 80){
 		  numberOfPerson--;
@@ -62,11 +59,11 @@ function writePersonDB(){
 	bdd_bar.writePersonne(numberOfPerson);
 }
 
-// Trigger a distance measurement once per second
+// Mesure la distance toutes les 500 ms 
 setInterval(function () {
-  trigger1.trigger(10, 1); // Set trigger high for 10 microseconds
-  trigger2.trigger(10,1);
-}, 1000);
+  trigger1.trigger(10, 1); // Presenter une impulsion high "5V" sur le trigger1
+  trigger2.trigger(10,1);  // Presenter une impulsion high "5V" sur le trigger2
+}, 500);
 
 setInterval(writePersonDB, 1000 *60);
 

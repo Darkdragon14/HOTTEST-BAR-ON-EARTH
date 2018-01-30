@@ -2,7 +2,7 @@
 //var socket = new WebSocket("ws://www.example.com/socketserver");
 //var socket=io.connect('http://localhost:8082');
 
-const address_server = "192.168.0.0" ;
+const address_server = "172.20.10.3" ;
 
 var bdd_bar=require("../BDD-BAR/app.js");
 //var sensor=require("node-dht-sensor");
@@ -39,7 +39,7 @@ function calculSommeTemp(res,callback){
 	res.forEach(function(obj){
 		console.log("Temperature valeur "+i+" : "+obj.temperature);
  		sommeTemp=sommeTemp+parseFloat(obj.temperature);
- 		console.log("somme Temperature apres ajout : "+sommeTemp);
+ 		//console.log("somme Temperature apres ajout : "+sommeTemp);
  		i++;
 	});
 	callback();
@@ -54,6 +54,7 @@ function calculMoyenneTemp (){
 		.then(function(res){
 			calculSommeTemp(res,function(){
 				var moyenne = sommeTemp/i;
+				console.log("moyenne  de temperature : "+moyenne);
 				sendToServer(moyenne,"temperature");
 				// bdd_bar.clean("TemperatureCollection");		//supprimer les donnees car sinon la fonction prendra fera une moyenne de toute les donnees au lieu de faire sur les 30 derniere min
 			})
@@ -64,7 +65,7 @@ function calculSommePers(res,callback){
 	res.forEach(function(obj){
 		console.log("Personne valeur "+j+" : "+obj.nbPersonne);
  		sommePers=sommePers+parseInt(obj.nbPersonne);
- 		console.log("somme Personne apres ajout : "+sommePers);
+ 		//console.log("somme Personne apres ajout : "+sommePers);
  		j++;
 	});
 	callback();
@@ -80,6 +81,7 @@ function calculMoyennePersonne (){
 				var moyenne = sommePers/j;
 				sendToServer(moyenne,"nbPersonne");
 				// bdd_bar.clean("TemperatureCollection");
+				console.log("moyenne nombre de personnes : "+moyenne);
 			})
 		});
 }

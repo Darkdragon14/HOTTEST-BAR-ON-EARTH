@@ -3,7 +3,7 @@ var sensor=require("node-dht-sensor");
 
 setTimeout(function(){conversion();}, 2000);
 
-var temp = setInterval(conversion, 5000*60);
+var temp = setInterval(conversion, 500*60);
 
 function conversion(){
         sensor.read(22, 4, function(err, temperature) {
