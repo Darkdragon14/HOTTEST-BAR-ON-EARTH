@@ -9,34 +9,35 @@ const nn = require('nearest-neighbor');
 const request = require('request');
 
 //adresse à modifier si nécessaire 
-const host = 'localhost';
+const hostNoSQL = 'api_mongo';
+const hostSQL = 'api_mysql';
 const portNoSQL = 3000;
 const portSQL = 3030;
 
 //les différentes requêtes
 const dataLive = {
-  hostname: host,
+  hostname: hostNoSQL,
   port: portNoSQL,
   path: '/getDataLive',
   method: 'GET',
 };
 
 const recupAvis = {
-	hostname: host,
+	hostname: hostNoSQL,
 	port: portNoSQL,
 	path: '/avis',
 	method: 'GET',
 }
 
 const recupUsers = {
-	hostname: host,
+	hostname: hostSQL,
 	port: portSQL,
 	path: '/userProfil',
 	method: 'GET',
 }
 
 const recupDonneeBar = {
-	hostname: host,
+	hostname: hostNoSQL,
 	port: portNoSQL,
 	path: '/dataBar',
 	method: 'GET',
@@ -63,7 +64,7 @@ app.get('/newClient/:IDUser&:musique&:bar&:occupation&:temperature', function(re
 		    nn.findMostSimilar(query, items, fields, function(nearestNeighbor, probability) {
 			  	var options = { 
 			  		method: 'POST',
-				  	url: "http://"+host+":"+portNoSQL+"/sendRecommandations",
+				  	url: "http://"+hostNoSQL+":"+portNoSQL+"/sendRecommandations",
 				  	headers: {'Content-Type': 'application/json'},
 				  	body: { IDUser: query.IDUser, IDBar: nearestNeighbor.IDBar, Probability: probability },
 				  	json: true 
@@ -132,7 +133,7 @@ function CalculRecommendation(){
 						probability = probability * (bar.note * 0.2);
 						var options = { 
 					  		method: 'POST',
-						  	url: "http://"+host+":"+portNoSQL+"/sendRecommandations",
+						  	url: "http://"+hostNoSQL+":"+portNoSQL+"/sendRecommandations",
 						  	headers: {'Content-Type': 'application/json'},
 						  	body: { IDUser: query.IDUser, IDBar: bar.IDBar, Probability: probability },
 						  	json: true 
@@ -218,7 +219,7 @@ function CalculRecommendationV2(){
 										probability = probability * (nearestNeighbor.note * 0.2);
 										var options = { 
 									  		method: 'POST',
-										  	url: "http://"+host+":"+portNoSQL+"/sendRecommandations",
+										  	url: "http://"+hostNoSQL+":"+portNoSQL+"/sendRecommandations",
 										  	headers: {'Content-Type': 'application/json'},
 										  	body: { IDUser: query.IDUser, IDBar: nearestNeighbor.IDBar, Probability: probability },
 										  	json: true 
