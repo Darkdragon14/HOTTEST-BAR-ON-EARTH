@@ -106,7 +106,7 @@ function calculMoyennePersonne (){
 function sendToServer (moyenne, data){
 	// Configure the request
 	var options = {
-	    url: 'https://'+address_server+'/updateData/',
+	    url: 'http://'+address_server+'/updateData/',
 	    //url: 'http://localhost:8082/updateData/',
         method: 'POST',
 	    headers: headers,

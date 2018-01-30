@@ -62,7 +62,7 @@ app.post('/register', function (req, res) {
 
 app.get('/userProfil', function (req, res) {
    connection.query('select * from profilUser', function (error, results, fields) {
-   if (error) throw error;
+   if (error) throw error; 
    res.end(JSON.stringify(results));
  });
 });
@@ -89,6 +89,13 @@ app.get('/profilBar', function (req, res) {
  });
 });
 
+app.put('/getBarDetails/nomBar=:employee_name', function (req, res) {
+   connection.query('select * from profilBar where',[req.body.employee_salary, req.body.employee_age, req.body.id, req.params.employee_name], function (error, results, fields) {
+   if (error) throw error;
+   res.json({message : "Changement effectué"});
+ });
+});
+
 app.post('/profilBar', function (req, res) {
    var postData  = req.body;
    connection.query('INSERT INTO profilBar SET ?', postData, function (error, results, fields) {
@@ -105,7 +112,7 @@ app.put('/updateBar', function (req, res) {
 });
 
 app.get('/getBarList', function (req, res) {
-   connection.query('select name from profilBar', function (error, results, fields) {
+   connection.query('select * from profilBar', function (error, results, fields) {
    if (error) throw error;
    res.end(JSON.stringify(results));
  });
