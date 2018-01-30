@@ -91,7 +91,8 @@ services:
     ports:
       - "8000"
     depends_on:
-      - db_server
+      - api_mysql
+      - api_mongo
     networks:
       - overlay
 
