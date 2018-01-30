@@ -5,6 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
 
 var TemperatureCollection = "TemperatureCollection";
+var HumiditeCollection = "HumiditeCollection";
 var PersonneCollection = "PersonneCollection";
 var SoundCollection = "SoundCollection";
 
@@ -65,6 +66,21 @@ function writePersonneFct (nbPersonneBar){
 }
 
 exports.writePersonne=writePersonneFct;
+
+
+function writeHumidityFct (tauxhumidite){
+
+  var myobj = { txHumidite: tauxhumidite, date: new Date() };
+
+  db.collection(HumiditeCollection).insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted" + res);
+
+  }); 
+
+}
+
+exports.writeHumidity=writeHumidityFct;
 
 var getDataFct = function getData (collection,callback){
  return new Promise(function(resolve, reject) {
