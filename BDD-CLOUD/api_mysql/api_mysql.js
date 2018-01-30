@@ -63,6 +63,9 @@ app.post('/register', function (req, res) {
 app.get('/userProfil', function (req, res) {
    connection.query('select * from profilUser', function (error, results, fields) {
    if (error) throw error;
+
+    //var toto = {IDUser: results.name}, 
+    console.log(results);
    res.end(JSON.stringify(results));
  });
 });

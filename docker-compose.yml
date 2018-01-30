@@ -9,7 +9,8 @@ services:
     networks:
       - overlay
     depends_on:
-      - db_server
+      - api_mongo
+      - api_mysql
 
   authapp:
     build: ./Server/AUTHAPP
@@ -36,21 +37,51 @@ services:
     networks:
       - overlay
 
-  db_server:
-    build: ./BDD-CLOUD/db_server
+  api_mongo:
+    container_name: api_mongo
+    restart: always
+    build: ./BDD-CLOUD/api_mongo
     ports:
-      - "3000"
+      - "3000:3000"
     depends_on:
       - mongo
     networks:
       - overlay
 
   mongo:
+    container_name: mongo
     image: mongo
     volumes:
-      - ./data:/data/db
+      - ./BDD-CLOUD/api_mongo/mongodata:/data/db
     ports:
-      - "27017"
+      - "27017:27017"
+    networks:
+      - overlay
+
+  mysql:
+    container_name: mysql
+    image: mysql
+    ports:
+      - "3306:3306" 
+    volumes:
+      - ./BDD-CLOUD/mysql/dump/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./BDD-CLOUD/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: NightAdvisor
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    networks:
+      - overlay
+
+  api_mysql:
+    container_name: api_mysql
+    restart: always
+    build: ./BDD-CLOUD/api_mysql
+    ports:
+      - "3030:3030"
+    depends_on:
+      - mysql
     networks:
       - overlay
 
@@ -60,7 +91,8 @@ services:
     ports:
       - "8000"
     depends_on:
-      - db_server
+      - api_mysql
+      - api_mongo
     networks:
       - overlay
 
