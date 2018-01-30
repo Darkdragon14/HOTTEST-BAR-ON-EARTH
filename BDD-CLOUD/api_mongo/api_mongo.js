@@ -68,7 +68,7 @@ var DataBar = mongoose.model('DataBar', dataBar);
 //Principale
 myRouter.route('/')
 .all(function(req,res){
-      res.json({message : "Bienvenue sur le serveur rattaché aux différentes bases de données de l'application Night Advisor"});
+      res.json({message : "Bienvenue sur le projet Night Advisor"});
 });
 
 //Avis
