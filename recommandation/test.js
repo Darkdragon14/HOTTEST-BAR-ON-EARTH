@@ -14,12 +14,12 @@ var items = [
 ];
 
 var user = [
-  { IDUser: "John", temperature: 18, bar: "Biere", musique: "pop", occupation: 11},
-  { IDUser: "Robin", temperature: 25, bar: "Vin", musique: "rap", occupation: 15 },
-  { IDUser: "Ted", temperature: 20, bar: "Biere", musique: "dance", occupation: 20 },
-  { IDUser: "Barney", temperature: 22, bar: "Whisky", musique: "electro", occupation: 30 },
-  { IDUser: "Lilly", temperature: 22, bar: "Vin", musique: "metal", occupation: 5 },
-  { IDUser: "Marshall", temperature: 15, bar: "Biere", musique: "rap", occupation: 12 },
+  { pseudo: "John", prefTemperature: 18, prefAmbiance: "Biere", styleMusique: "pop", prefFrequentation: 11},
+  { pseudo: "Robin", prefTemperature: 25, prefAmbiance: "Vin", styleMusique: "rap", prefFrequentation: 15 },
+  { pseudo: "Ted", prefTemperature: 20, prefAmbiance: "Biere", styleMusique: "dance", prefFrequentation: 20 },
+  { pseudo: "Barney", prefTemperature: 22, prefAmbiance: "Whisky", styleMusique: "electro", prefFrequentation: 30 },
+  { pseudo: "Lilly", prefTemperature: 22, prefAmbiance: "Vin", styleMusique: "metal", prefFrequentation: 5 },
+  { pseudo: "Marshall", prefTemperature: 15, prefAmbiance: "Biere", styleMusique: "rap", prefFrequentation: 12 },
 ];
 
 var soirBar = [

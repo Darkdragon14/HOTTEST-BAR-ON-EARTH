@@ -103,6 +103,14 @@ function CalculRecommendation(){
 	resp.setEncoding('utf8');
 		resp.on('data', function (chunk) {
 			user = JSON.parse(chunk);
+			//Petite modif pour la démo et donc modif du test pour qu'il continu à fonctionner
+			for(var i = 0; i < user.length; i++){
+				user[i].IDUser = user[i].pseudo;
+				user[i].temperature = parseInt(user[i].prefTemperature);
+				user[i].bar = user[i].prefAmbiance;
+				user[i].musique = user[i].styleMusique;
+				user[i].occupation = parseInt(user[i].prefFrequentation);
+			}
 		});
 	}).on("error", function(e){
   		console.log("Got error: " + e.message);
