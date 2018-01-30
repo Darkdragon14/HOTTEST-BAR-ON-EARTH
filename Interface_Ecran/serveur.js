@@ -27,7 +27,7 @@ io.on('connection', function(socket){
 		.then(function(res){
 			refreshTemperature(res[res.length-1].temperature);
 		});
-	}, 5*60000);			//toutes les 5 minutes
+	}, 30000);			//toutes les 5 minutes
 
     //////////Refresh du nb de personne////////////
 	bdd_bar.getData("PersonneCollection")

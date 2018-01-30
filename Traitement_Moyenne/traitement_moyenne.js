@@ -2,7 +2,7 @@
 //var socket = new WebSocket("ws://www.example.com/socketserver");
 //var socket=io.connect('http://localhost:8082');
 
-const address_server = "172.20.10.3" ;
+const address_server = "192.168.43.193" ;
 
 var bdd_bar=require("../BDD-BAR/app.js");
 //var sensor=require("node-dht-sensor");
@@ -46,12 +46,13 @@ function calculSommeTemp(res,callback){
  		//console.log("somme Temperature apres ajout : "+sommeTemp);
  		i++;
 	});*/
-
-	for (i; i < res.length || i<4; i++) {
-		console.log("Temperature valeur "+i+" : "+res[res.length-i].temperature);
- 		sommeTemp=sommeTemp+parseFloat(res[res.length-i].temperature);
+	if(!(res.length < 4)){		
+		for (i; i<4; i++) {
+			console.log("i" + i);
+			console.log("Temperature valeur "+i+" : "+res[res.length-(i+1)].temperature);
+			sommeTemp=sommeTemp+parseFloat(res[res.length-(i+1)].temperature);
+		}
 	}
-
 	callback();
 }
 
@@ -79,9 +80,9 @@ function calculSommePers(res,callback){
  		j++;
 	});*/
 
-	for (j; j < res.length || j<2; j++) {
-		console.log("Personne valeur "+j+" : "+res[res.length-j].nbPersonne);
- 		sommePers=sommePers+parseFloat(res[res.length-j].nbPersonne);
+	for (j; j<2; j++) {
+		console.log("Personne valeur "+j+" : "+res[res.length-(j+1)].nbPersonne);
+ 		sommePers=sommePers+parseFloat(res[res.length-(j+1)].nbPersonne);
 	}
 
 	callback();
