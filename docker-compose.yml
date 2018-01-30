@@ -39,7 +39,7 @@ services:
   api_mongo:
     container_name: api_mongo
     restart: always
-    build: ./api_mongo
+    build: ./BDD-CLOUD/api_mongo
     ports:
       - "3000:3000"
     depends_on:
@@ -51,7 +51,7 @@ services:
     container_name: mongo
     image: mongo
     volumes:
-      - ./api_mongo/mongodata:/data/db
+      - ./BDD-CLOUD/api_mongo/mongodata:/data/db
     ports:
       - "27017:27017"
     networks:
@@ -63,8 +63,8 @@ services:
     ports:
       - "3306:3306" 
     volumes:
-      - ./mysql/dump/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./mysql/data:/var/lib/mysql
+      - ./BDD-CLOUD/mysql/dump/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./BDD-CLOUD/mysql/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: NightAdvisor
@@ -76,7 +76,7 @@ services:
   api_mysql:
     container_name: api_mysql
     restart: always
-    build: ./api_mysql
+    build: ./BDD-CLOUD/api_mysql
     ports:
       - "3030:3030"
     depends_on:
