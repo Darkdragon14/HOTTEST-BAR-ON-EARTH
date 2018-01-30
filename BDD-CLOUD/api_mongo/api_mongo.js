@@ -54,11 +54,13 @@ var recommandations = mongoose.Schema({
     Probability: Number
 });
 
+
 var Avis = mongoose.model('Avis', avisUsers);
 var Temperature = mongoose.model('Temperature', temperature);
 var DataLive = mongoose.model('DataLive', dataLive);
 var Recommandations = mongoose.model('Recommandations', recommandations);
 var DataBar = mongoose.model('DataBar', dataBar);
+
 
 
 //ROUTES
@@ -102,32 +104,6 @@ myRouter.route('/avis/:avis_id')
         });
 })
 
-/*
-.put(function(req,res){
-                Avis.findById(req.params.avis_id, function(err, avis) {
-                if (err){
-                    res.send(err);
-                }
-                        avis.idUser = req.body.idUser;
-                        avis.idBar = req.body.idBar;
-                        avis.note = req.body.note;
-                        avis.save(function(err){
-                          if(err){
-                            res.send(err);
-                          }
-                          res.json({message : "Avis mis à jour"});
-                        });
-                });
-})
-.delete(function(req,res){
-    Avis.remove({_id: req.params.avis_id}, function(err, avis){
-        if (err){
-            res.send(err);
-        }
-        res.json({message:"Avis supprimé"});
-    });
-
-});*/
 
 //Température
 myRouter.route('/updateData')
@@ -150,17 +126,6 @@ myRouter.route('/updateData')
         res.json({message : "Temperature enregistrée"});
       });
 });
-
-
-//Recherche température par bar (avec l'idBar)
-/*myRouter.route('/temperature/:temperature.moyTemp')
-.get(function(req,res){
-            Temperature.find({ 'moyTemp': 'variable' }, function(err, temperature) {
-            if (err)
-                res.send(err);
-            res.json(temperature);
-        });
-})*/
 
 
 //DataLive
@@ -210,6 +175,25 @@ myRouter.route('/sendRecommandations')
         res.json({message : "Recommandation enregistrée"});
       });
 });
+
+myRouter.route('/gatDashboard/:IDUser')
+.get(function(req,res){
+  Recommandations.find(req.params.IDUser).then(function(err, recommandations){
+        if (err){
+            res.send(err);
+        }
+        res.json(recommandations);
+    });
+})
+
+app.get('/sendRecommandations/:IDUser', function(req, res){
+  Recommandations.find(req.params.IDUser).then(function(err, recommandations){
+    if (err){
+      res.send(err);
+    }
+    res.json(recommandations);
+  })
+})
 
 
 myRouter.route('/dataBar')

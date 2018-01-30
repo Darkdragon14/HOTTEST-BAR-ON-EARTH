@@ -37,15 +37,23 @@ DEFAULT CHARACTER SET = latin1;
 -- ----------------------------------------------------------------------------
 -- Table NightAdvisor.profilBar
 -- ----------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS `NightAdvisor`.`profilBar` (
-  `nom` VARCHAR(255) NOT NULL,
-  `adresse` VARCHAR(255) NOT NULL,
-  `codePostal` VARCHAR(255) NOT NULL,
-  `ville` VARCHAR(255) NOT NULL,
-  `horaires` VARCHAR(255) NOT NULL,
-  `frequentationMax` VARCHAR(255) NOT NULL,
-  `styleMusique` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NOT NULL)
+CREATE TABLE IF NOT EXISTS `profilBar` (
+`name` JSON DEFAULT NULL,
+`location` JSON DEFAULT NOT NULL,
+`email` VARCHAR(255) NOT NULL,
+`phone` VARCHAR(255) NOT NULL,
+`picture` JSON NOT NULL,
+`nat` VARCHAR(255) NOT NULL,
+`favoris` VARCHAR(255) NOT NULL,
+`moyenneAvis` VARCHAR(255) NOT NULL,
+`nbAvis` VARCHAR(255) NOT NULL,
+`ambiance` VARCHAR(255) NOT NULL,
+`frequentation` VARCHAR(255) NOT NULL,
+`freqMax` VARCHAR(255) NOT NULL,
+`temperature` VARCHAR(255) NOT NULL,
+`horaire` VARCHAR(255) NOT NULL,
+`infoComp` JSON NOT NULL,
+`login` JSON NOT NULL)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
