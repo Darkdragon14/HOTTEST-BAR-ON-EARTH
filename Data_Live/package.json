@@ -1,0 +1,15 @@
+{
+  "name": "data_live",
+  "version": "1.0.0",
+  "description": "",
+  "main": "data_live.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "io": "^1.0.0",
+    "socket.io": "^2.0.4"
+  }
+}

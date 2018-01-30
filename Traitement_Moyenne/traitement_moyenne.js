@@ -22,26 +22,36 @@ setTimeout(function(){calculMoyenneTemp();calculMoyennePersonne();}, 2000);
 setInterval(function(){
 				calculMoyenneTemp();
 				calculMoyennePersonne();
-			}, 60000);			//toute les minute pour la demo
+			}, 120000);			//toute les minute pour la demo
 
 var now = new Date();
-var millisTill7 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 15, 22, 0, 0) - now;
+var millisTill7 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 7, 00, 0, 0) - now;
 if (millisTill7 < 0) {
      millisTill7 += 86400000; // it's after 7am, try 7am tomorrow.
 }
 
-setTimeout(function(){console.log("il est 7 heure");}, millisTill7);		//!!!!!!!!!!!!!!!!!!!moyenne une fois par jour
+setTimeout(function(){
+				console.log("il est 7 heure");
+				bdd_bar.clean("TemperatureCollection");
+				bdd_bar.clean("PersonneCollection");
+			}, millisTill7);		//!!!!!!!!!!!!!!!!!!!moyenne une fois par jour
 
 var sommeTemp, sommePers;
 var i, j;
 
 function calculSommeTemp(res,callback){
-	res.forEach(function(obj){
+	/*res.forEach(function(obj){
 		console.log("Temperature valeur "+i+" : "+obj.temperature);
  		sommeTemp=sommeTemp+parseFloat(obj.temperature);
  		//console.log("somme Temperature apres ajout : "+sommeTemp);
  		i++;
-	});
+	});*/
+
+	for (i; i < res.length || i<4; i++) {
+		console.log("Temperature valeur "+i+" : "+res[res.length-i].temperature);
+ 		sommeTemp=sommeTemp+parseFloat(res[res.length-i].temperature);
+	}
+
 	callback();
 }
 
@@ -62,12 +72,18 @@ function calculMoyenneTemp (){
 }
 
 function calculSommePers(res,callback){
-	res.forEach(function(obj){
+	/*res.forEach(function(obj){
 		console.log("Personne valeur "+j+" : "+obj.nbPersonne);
  		sommePers=sommePers+parseInt(obj.nbPersonne);
  		//console.log("somme Personne apres ajout : "+sommePers);
  		j++;
-	});
+	});*/
+
+	for (j; j < res.length || j<2; j++) {
+		console.log("Personne valeur "+j+" : "+res[res.length-j].nbPersonne);
+ 		sommePers=sommePers+parseFloat(res[res.length-j].nbPersonne);
+	}
+
 	callback();
 }
 

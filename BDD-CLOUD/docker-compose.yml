@@ -1,21 +1,20 @@
 version: "2"
 services:
 
-  db_server:
-    container_name: db_server
+  api_mongo:
+    container_name: api_mongo
     restart: always
-    build: ./db_server
+    build: ./api_mongo
     ports:
-      - "3000"
+      - "3000:3000"
     depends_on:
       - mongo
-      - mysql
 
   mongo:
     container_name: mongo
     image: mongo
     volumes:
-      - ./mongodata:/data/db
+      - ./api_mongo/mongodata:/data/db
     ports:
       - "27017:27017"
 
@@ -32,5 +31,16 @@ services:
       MYSQL_DATABASE: NightAdvisor
       MYSQL_USER: root
       MYSQL_PASSWORD: password
+
+  api_mysql:
+    container_name: api_mysql
+    restart: always
+    build: ./api_mysql
+    ports:
+      - "3030:3030"
+    depends_on:
+      - mysql
+
+
 
 

@@ -147,15 +147,16 @@ app.get("/getDataLive", function(req, res){
 })
 
 app.post("/sendRecommandations", function(req, res){
+  console.log('\ntest : ');
   console.log(req.body);
   res.send("ok");
 })
 
-app.get("/allView", function(req, res){
+app.get("/avis", function(req, res){
   res.send(avis);
 })
 
-app.get("/allUser", function(req, res){
+app.get("/userProfil", function(req, res){
   res.send(user);
 })
 
