@@ -16,6 +16,7 @@ var connected = []
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.disable('x-powered-by');
 
 app.use(session({
     store: new RedisStore({host: 'redis', port:6379, client:redisClient}),
@@ -35,18 +36,25 @@ passport.use(new LocalStrategy({
   function(req, username, password, done) {
       console.log('Users: ' + username)
       console.log('Passwd: ' + password)
-      redisClient.exists(req.headers.cookie, function(err, reply) {
+      redisClient.exists(req.sessionID, function(err, reply) {
           if (reply === 1) {
               console.log('User exists');
               return done(null, username);
           } else {
               console.log('User doesn\'t exist');
-              if (username == "Fred" && password == "pwd" || username == "Ben" && password == "pswd") {
-                redisClient.set(req.headers.cookie, username, redis.print());
-                return done(null, username);
-              }else{
-                return done(null, false, { message: 'Incorrect user.' });
-              }
+              request('http://api_mysql:3030/userProfil', function(error, response, body) {
+                var i = 0
+                while(i<JSON.parse(body).length){
+                  console.log("Nom " + i + " : " + JSON.parse(body)[i].nom)
+                  if(JSON.parse(body)[i].nom == username){
+                    redisClient.set(req.sessionID, username, redis.print());
+                    return done(null, username);
+                  }else if(i == body.length){
+                    return done(null, false, { message: 'Incorrect user.' });
+                  }
+                  i++
+                }
+              })
           }
       })
   }
@@ -63,15 +71,16 @@ passport.deserializeUser(function(id, done) {
 app.post('/login/',
   passport.authenticate('local'),
   function(req, res){
-    res.send({token: true, cookie: req.headers.cookie})
+    console.log(req.sessionID)
+    res.send({token: true, cookie: req.sessionID})
 });
 
 app.post('/logout/',
   function(req, res){
-    redisClient.exists(req.headers.cookie, function(err, reply) {
+    redisClient.exists(req.sessionID, function(err, reply) {
         if (reply === 1) {
             console.log('User exists');
-            redisClient.del(req.headers.cookie);
+            redisClient.del(req.sessionID);
             res.send({token: true})
         } else {
             console.log('User not connected');
@@ -81,11 +90,11 @@ app.post('/logout/',
 });
 
 app.get('/register/',
-  passport.authenticate('local', { successRedirect: '/getDashBoard',
-                                   failureRedirect: '/register',
-                                   session: true
-                                 })
-)
+  passport.authenticate('local'),
+  function(req, res){
+    console.log(req.sessionID)
+    res.send({token: true, cookie: req.sessionID})
+});
 
 app.listen(port, function(){
   console.log('listening on : ' + port)

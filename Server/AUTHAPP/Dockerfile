@@ -1,4 +1,4 @@
-FROM node
+FROM node:9.4-alpine
 #Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
