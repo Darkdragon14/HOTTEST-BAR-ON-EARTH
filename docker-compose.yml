@@ -21,15 +21,6 @@ services:
     depends_on:
       - redis
 
-  webapp:
-    build: ./Server/WEBAPP
-    ports:
-      - "8081"
-    networks:
-      - overlay
-    depends_on:
-      - redis
-
   socketclient:
     build: ./Server/SOCKETCLIENT
     ports:
@@ -62,7 +53,7 @@ services:
     container_name: mysql
     image: mysql
     ports:
-      - "3306:3306" 
+      - "3306:3306"
     volumes:
       - ./BDD-CLOUD/mysql/dump/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./BDD-CLOUD/mysql/data:/var/lib/mysql
