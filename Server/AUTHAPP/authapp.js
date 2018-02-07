@@ -65,14 +65,16 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  done(null, id);
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 
 app.post('/login/',
   passport.authenticate('local'),
   function(req, res){
     console.log(req.sessionID)
-    res.send({token: true, cookie: req.sessionID})
+    res.send({token: true, sessionID: req.sessionID})
 });
 
 app.post('/logout/',
